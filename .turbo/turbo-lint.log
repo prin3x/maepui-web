@@ -1,0 +1,6 @@
+
+[2K[1G[1myarn run v1.22.19[22m
+[2K[1G[33mwarning[39m package.json: "dependencies" has dependency "eslint" with range "8.43.0" that collides with a dependency in "devDependencies" of the same name with version "^8.13.0"
+[2K[1G[2m$ next lint[22m
+
+ [33m[1m⚠[22m[39m The Next.js plugin was not detected in your ESLint configuration. See https://nextjs.org/docs/basic-features/eslint#migrating-existing-config
