@@ -518,29 +518,29 @@ header {
               padding-left: 18px;
             }
 
-            // &::before {
-            //   @include pos($pos: absolute, $content: "\ea4e");
-            //   @include remixicon;
-            //   @include center(vertical);
-            //   right: -4px;
-            //   font-size: 16px;
-            //   transition: all 0.6s ease;
+            &::before {
+              @include pos($pos: absolute, $content: "\ea4e");
+              @include remixicon;
+              @include center(vertical);
+              right: -4px;
+              font-size: 16px;
+              transition: all 0.6s ease;
 
-            //   body[dir='rtl'] & {
-            //     right: unset;
-            //     left: -4px;
-            //   }
+              body[dir='rtl'] & {
+                right: unset;
+                left: -4px;
+              }
 
-            //   @include mq-max(xl) {
-            //     right: 0;
-            //     line-height: 1;
+              @include mq-max(xl) {
+                right: 0;
+                line-height: 1;
 
-            //     body[dir='rtl'] & {
-            //       right: unset;
-            //       left: 0;
-            //     }
-            //   }
-            // }
+                body[dir='rtl'] & {
+                  right: unset;
+                  left: 0;
+                }
+              }
+            }
           }
 
           >.dropdown-menu {
@@ -1271,15 +1271,15 @@ header {
             position: relative;
             padding-right: 26px;
 
-            // &::after {
-            //   @include pos($pos: absolute, $content: '\ea4e');
-            //   @include remixicon;
-            //   @include center(vertical);
-            //   @include pseudowh($width: unset, $height: unset);
-            //   display: block;
-            //   right: 10px;
-            //   border: none;
-            // }
+            &::after {
+              @include pos($pos: absolute, $content: '\ea4e');
+              @include remixicon;
+              @include center(vertical);
+              @include pseudowh($width: unset, $height: unset);
+              display: block;
+              right: 10px;
+              border: none;
+            }
           }
 
           &:last-child {
