@@ -37,9 +37,15 @@ export const productSliderOption = {
   pauseOnHover: true,
   responsive: [
     {
+      breakpoint: 2400,
+      settings: {
+        slidesToShow: 7,
+      },
+    },
+    {
       breakpoint: 1680,
       settings: {
-        slidesToShow: 4,
+        slidesToShow: 7,
       },
     },
     {
@@ -413,6 +419,12 @@ export const madridCategorySlider = {
   slidesToScroll: 1,
   responsive: [
     {
+      breakpoint: 2400,
+      settings: {
+        slidesToShow: 9,
+      },
+    },
+    {
       breakpoint: 1661,
       settings: {
         slidesToShow: 7,
@@ -481,10 +493,10 @@ export const specialOfferSliderOffer = {
 
 export const madridFeatureBlog = {
   arrows: true,
-  infinite: true,
+  infinite: false,
   slidesToShow: 4,
   slidesToScroll: 1,
-  autoplay: false,
+  autoplay: true,
   autoplaySpeed: 2500,
   responsive: [
     {
@@ -899,12 +911,24 @@ export const osakaFullSlider = {
 };
 
 export const madridFullSlider = {
-  infinite: true,
+  infinite: false,
   arrows: true,
   slidesToShow: 6,
   slidesToScroll: 1,
   pauseOnHover: true,
   responsive: [
+    {
+      breakpoint: 2400,
+      settings: {
+        slidesToShow: 7,
+      },
+    },
+    {
+      breakpoint: 1680,
+      settings: {
+        slidesToShow: 7,
+      },
+    },
     {
       breakpoint: 1500,
       settings: {
