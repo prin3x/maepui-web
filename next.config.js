@@ -6,16 +6,14 @@ module.exports = (phase) => {
   const isProd = phase === PHASE_PRODUCTION_BUILD && process.env.STAGING !== '1';
   // when `next build` or `npm run build` is used
   const isStaging = phase === PHASE_PRODUCTION_BUILD && process.env.STAGING === '1';
-
+  const API_PROD_URL = process.env.NEXT_PUBLIC_API_PROD_URL
   const env = {
     API_PROD_URL: (() => {
-      if (isDev) return 'http://localhost:8080/api/';
+      if (isDev) return API_PROD_URL;
       if (isProd) {
-        // Note: The code below needs to be uncommented, and you should use your domin where your API is hosted.
-        // return 'Enter Your URL here'
-        return 'http://localhost:8080/api/';
+        return API_PROD_URL;
       }
-      if (isStaging) return 'http://localhost:8080/api/';
+      if (isStaging) return API_PROD_URL;
       return 'RESTURL_SPEAKERS:not (isDev,isProd && !isStaging,isProd && isStaging)';
     })(),
     API_BASE_URL: 'http://localhost:8080/api',
