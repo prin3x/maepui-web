@@ -49,6 +49,18 @@ module.exports = (phase) => {
         protocol: 'https',
         hostname: 'react.pixelstrap.net',
       },
+      {
+        protocol: 'http',
+        hostname: 'maepui-core.s3.amazonaws.com',
+      },
+      {
+        protocol: 'http',
+        hostname: 'maepui-core-dev.s3.amazonaws.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 's3.ap-southeast-1.amazonaws.com',
+      },
     ],
   };
 
