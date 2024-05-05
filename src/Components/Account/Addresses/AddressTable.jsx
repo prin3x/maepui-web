@@ -19,7 +19,7 @@ const AddressTable = ({ address }) => {
               <td>Address :</td>
               <td>
                 <p>
-                  {address?.street}, {address?.city}, {address?.state?.name},{address?.country?.name}
+                  {address?.address}
                 </p>
               </td>
             </tr>
@@ -30,7 +30,7 @@ const AddressTable = ({ address }) => {
             <tr>
               <td>Phone :</td>
               <td>
-                +{address?.country_code} {address?.phone}
+                {address?.phone}
               </td>
             </tr>
           </tbody>

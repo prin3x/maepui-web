@@ -54,7 +54,7 @@ export const discountSchema = Yup.number().min(0).max(100);
 export const requiredSchema = Yup.mixed().required();
 export const StatusSchema = Yup.boolean().required();
 
-export const phoneSchema = Yup.string().min(10).max(10).required()
+export const phoneSchema = Yup.string().min(9).max(10).required()
 
 export const ifIsApplyAll = Yup.array().when("is_apply_all", {
   is: (val) => !val,
