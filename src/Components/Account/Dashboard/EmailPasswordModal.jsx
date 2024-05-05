@@ -38,6 +38,7 @@ const EmailPasswordModal = ({ modal, setModal }) => {
             if (modal == 'password') {
               // Add Update password here
               setModal('')
+              console.log('test')
             } else {
               // Add Update password here
               setModal('')
