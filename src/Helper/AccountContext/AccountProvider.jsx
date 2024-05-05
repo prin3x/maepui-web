@@ -8,7 +8,7 @@ const AccountProvider = (props) => {
   const [mobileSideBar, setMobileSideBar] = useState(false);
   const [accountData, setAccountData] = useState();
   const { data, refetch, isLoading } = useQuery([SelfAPI], () => request({ url: SelfAPI }), {
-    enabled: false,
+    enabled: true,
     select: (res) => {
       return res?.data;
     },

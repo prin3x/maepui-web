@@ -1,12 +1,3 @@
-import paris from "../public/assets/images/themes/01.jpg";
-import tokyo from "../public/assets/images/themes/02.jpg";
-import osaka from "../public/assets/images/themes/03.jpg";
-import rome from "../public/assets/images/themes/04.jpg";
-import madrid from "../public/assets/images/themes/05.jpg";
-import berlin from "../public/assets/images/themes/06.jpg";
-import denver from "../public/assets/images/themes/07.jpg";
-import commingSoon from "../public/assets/images/themes/08.jpg";
-
 export const headerMenu = [
   {
     id: 1,

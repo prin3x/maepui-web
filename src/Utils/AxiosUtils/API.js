@@ -1,11 +1,12 @@
 // Auth
-export const RegisterAPI = '/register'
-export const LoginAPI = "/login"
-export const SelfAPI = "/self"
-export const ForgotPasswordAPI = "/forgot-password"
-export const VerifyTokenAPI = "/verify-token"
-export const UpdatePasswordAPI = "/update-password"
-export const LogoutAPI = "/logout";
+export const AuthAPI = '/auth'
+export const RegisterAPI = '/auth/signup'
+export const LoginAPI = "/auth/signin"
+export const SelfAPI = "/auth/self"
+export const ForgotPasswordAPI = "/auth/forgot-password"
+export const VerifyTokenAPI = "/auth/verify-token"
+export const UpdatePasswordAPI = "/auth/update-password"
+export const LogoutAPI = "/auth/signout";
 
 // Theme Option
 export const ThemeOptionsAPI = "/settings/themeOptions"
@@ -74,7 +75,7 @@ export const OrderAPI = '/orders';
 export const VerifyPayment = '/verifyPayment';
 
 // Update Profile API
-export const UpdateProfileAPI = '/updateProfile'
+export const UpdateProfileAPI = '/user/updateProfile'
 
 // Update Profile API
 export const UpdateProfilePasswordAPI = '/updatePassword'

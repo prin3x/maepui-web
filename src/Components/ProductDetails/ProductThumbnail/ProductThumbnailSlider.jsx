@@ -13,7 +13,6 @@ const ProductThumbnailSlider = ({ productState }) => {
   const slider1 = useRef();
   const slider2 = useRef();
   const { nav1, nav2 } = state;
-  console.log(productState)
   useEffect(() => {
     setState({
       nav1: slider1.current,

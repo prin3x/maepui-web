@@ -1,9 +1,9 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Formik } from 'formik';
 import I18NextContext from '@/Helper/I18NextContext';
 import request from '@/Utils/AxiosUtils';
-import { CountryAPI } from '@/Utils/AxiosUtils/API';
+import { AddressAPI } from '@/Utils/AxiosUtils/API';
 import { YupObject, nameSchema, phoneSchema } from '@/Utils/Validation/ValidationSchemas';
 import { useTranslation } from '@/app/i18n/client';
 import SelectForm from './SelectForm';
@@ -12,43 +12,40 @@ const AddAddressForm = ({ mutate, type, editAddress, setEditAddress, modal, setM
   useEffect(() => {
     modal !== 'edit' && setEditAddress && setEditAddress({});
   }, [modal]);
-  const { data } = useQuery([CountryAPI], () => request({ url: CountryAPI }), {
-    enabled: true,
-    refetchOnWindowFocus: false,
-    select: (res) => res.data.map((country) => ({ id: country.id, name: country.name, state: country.state })),
-  });
+
   const { i18Lang } = useContext(I18NextContext);
   const { t } = useTranslation(i18Lang, 'common');
   return (
     <Formik
       initialValues={{
         title: editAddress ? editAddress?.title : '',
-        street: editAddress ? editAddress?.street : '',
-        country_id: editAddress ? editAddress?.country_id : '',
-        state_id: editAddress ? editAddress?.state_id : '',
-        city: editAddress ? editAddress?.city : '',
+        address: editAddress ? editAddress?.address : '',
         pincode: editAddress ? editAddress?.pincode : '',
         phone: editAddress ? editAddress?.phone : '',
-        type: type ? type : null,
-        country_code: editAddress ? editAddress?.country_code : '91',
       }}
       validationSchema={YupObject({
         title: nameSchema,
-        street: nameSchema,
-        city: nameSchema,
-        country_id: nameSchema,
-        state_id: nameSchema,
+        address: nameSchema,
         pincode: nameSchema,
         phone: phoneSchema,
       })}
       onSubmit={(values) => {
         if (modal) {
-          values['_method'] = 'PUT';
+          values['_method'] = 'POST';
         }
         values['pincode'] = values['pincode'].toString();
-        mutate(values);
-      }}>
-      {({ values, setFieldValue }) => <SelectForm values={values} setFieldValue={setFieldValue} setModal={setModal} data={data} />}
+        mutate.mutate(values);
+      }}
+    >
+      {({ values, setFieldValue, handleChange }) => {
+        return (
+        <SelectForm
+          values={values}
+          setFieldValue={setFieldValue}
+          setModal={setModal}
+          handleChange={handleChange}
+        />
+      )}}
     </Formik>
   );
 };

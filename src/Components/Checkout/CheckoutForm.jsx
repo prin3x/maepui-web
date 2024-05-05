@@ -12,7 +12,7 @@ const CheckoutForm = () => {
   const [address, setAddress] = useState([]);
   const [modal, setModal] = useState('');
   useEffect(() => {
-    accountData?.address.length > 0 && setAddress((prev) => [...accountData?.address]);
+    accountData?.addresses.length > 0 && setAddress((prev) => [...accountData?.addresses]);
   }, [accountData]);
   const addAddress = () => {
     setModal('');
