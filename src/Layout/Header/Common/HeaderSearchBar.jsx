@@ -12,9 +12,9 @@ const HeaderSearchBar = () => {
   const router = useRouter();
   const onHandleSearch = () => {
     if (searchValue) {
-      router.push(`/${i18Lang}/search?search=${searchValue}`);
+      router.push(`/${i18Lang}/products?search=${searchValue}`);
     } else {
-      router.push(`/${i18Lang}/search`);
+      router.push(`/${i18Lang}/products`);
     }
   };
   return (

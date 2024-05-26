@@ -30,6 +30,7 @@ const CollectionProducts = ({ filter, grid }) => {
           sortBy: filter?.sortBy ?? '',
           rating: filter?.rating.join(',') ?? '',
           attribute: filter?.attribute.join(',') ?? '',
+          search: filter?.search ?? '',
           store_slug: slug ? slug : null,
         },
       }),

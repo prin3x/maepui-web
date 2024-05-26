@@ -1,8 +1,8 @@
 "use client";
-import ClassicHeader from "./ClassicHeader";
+import MinimalHeader from "./MinimalHeader";
 
 const MainHeader = () => {
-  return <ClassicHeader/>;
+  return <MinimalHeader/>;
 };
 
 export default MainHeader;

@@ -1,13 +1,12 @@
+import AccountContext from '@/Helper/AccountContext';
+import I18NextContext from '@/Helper/I18NextContext';
 import { useMutation } from '@tanstack/react-query';
-import request from '../../AxiosUtils';
-import { emailSchema, passwordSchema, YupObject } from '../../Validation/ValidationSchemas';
-import { LoginAPI } from '../../AxiosUtils/API';
+import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 import { useContext } from 'react';
-import I18NextContext from '@/Helper/I18NextContext';
-import Cookies from 'js-cookie';
-import AccountContext from '@/Helper/AccountContext';
-import CompareContext from '@/Helper/CompareContext';
+import request from '../../AxiosUtils';
+import { LoginAPI } from '../../AxiosUtils/API';
+import { emailSchema, passwordSchema, YupObject } from '../../Validation/ValidationSchemas';
 
 export const LogInSchema = YupObject({
   email: emailSchema,
@@ -16,7 +15,7 @@ export const LogInSchema = YupObject({
 
 const LoginHandle = (responseData, router, i18Lang, refetch, compareRefetch) => {
   if (responseData.status === 200 || responseData.status === 201) {
-    Cookies.set('uat', responseData.data?.access_token, { path: '/', expires: new Date(Date.now() + 24 * 60 * 6000) });
+    Cookies.set('authToken', responseData.data?.access_token, { path: '/', expires: new Date(Date.now() + 24 * 60 * 6000) });
     const ISSERVER = typeof window === 'undefined';
     if (typeof window !== 'undefined') {
       Cookies.set('account', JSON.stringify(responseData.data));
@@ -31,7 +30,6 @@ const LoginHandle = (responseData, router, i18Lang, refetch, compareRefetch) => 
 const useHandleLogin = () => {
   const { i18Lang } = useContext(I18NextContext);
   const { refetch } = useContext(AccountContext);
-  const { refetch: compareRefetch } = useContext(CompareContext);
   const router = useRouter();
   return useMutation(
     (data) =>
@@ -41,7 +39,7 @@ const useHandleLogin = () => {
         data,
       }),
     {
-      onSuccess: (responseData) => LoginHandle(responseData, router, i18Lang, refetch, compareRefetch),
+      onSuccess: (responseData) => LoginHandle(responseData, router, i18Lang, refetch),
     },
   );
 };

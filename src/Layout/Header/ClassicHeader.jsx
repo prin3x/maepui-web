@@ -7,6 +7,7 @@ import ClassicHeaderMenu from './Common/ClassicHeaderMenu';
 import HeaderLogo from './Common/HeaderLogo';
 import HeaderTopBar from './Common/HeaderTopBar';
 import RightSideHeader from './RightSideHeader';
+import HeaderSearchBar from './Common/HeaderSearchBar';
 
 const ClassicHeader = () => {
   const { themeOption } = useContext(ThemeOptionContext);
@@ -14,6 +15,17 @@ const ClassicHeader = () => {
   return (
     <header className={themeOption?.header?.sticky_header_enable && UpScroll ? 'active' : ''}>
       {themeOption?.header?.page_top_bar_enable && <HeaderTopBar />}
+      <div className='top-nav top-header sticky-header'>
+        <div className='container-fluid-lg'>
+          <Row>
+            <Col xs='12'>
+              <div className='navbar-top'>
+                <HeaderSearchBar />
+              </div>
+            </Col>
+          </Row>
+        </div>
+      </div>
 
       <div className='top-nav top-header sticky-header'>
         <div className='container-fluid-lg'>
@@ -22,7 +34,7 @@ const ClassicHeader = () => {
               <div className='navbar-top'>
                 <HeaderLogo />
                 <ClassicHeaderMenu />
-                {/* <RightSideHeader noContactUs={true} wishListIcon={<FiBookmark />} /> */}
+                <RightSideHeader noContactUs={true} wishListIcon={<FiBookmark />} />
               </div>
             </Col>
           </Row>

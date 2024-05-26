@@ -9,7 +9,7 @@ const MainCollectionSlider = ({ filter, setFilter }) => {
       <CollectionSlider filter={filter} setFilter={setFilter} />
       <WrapperComponent classes={{ sectionClass: 'section-b-space shop-section' }} customCol={true}>
         <CollectionSidebar filter={filter} setFilter={setFilter} />
-        <MainCollection filter={filter} setFilter={setFilter} />
+        {/* <MainCollection filter={filter} setFilter={setFilter} /> */}
       </WrapperComponent>
     </>
   );

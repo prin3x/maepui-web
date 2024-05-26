@@ -10,6 +10,7 @@ import I18NextContext from '@/Helper/I18NextContext';
 import { useTranslation } from '@/app/i18n/client';
 import SearchedData from './SearchedData';
 import ProductContext from '@/Helper/ProductContext';
+import { ProductAPI } from '@/Utils/AxiosUtils/API';
 
 const SearchModule = () => {
   const { i18Lang } = useContext(I18NextContext);
@@ -21,15 +22,15 @@ const SearchModule = () => {
    const { productData } = useContext(ProductContext);
    const [data,setData]=useState([])
    useEffect(() => {
-    search ? setData(productData?.filter(product => product.name.toLowerCase().includes(search?.toLowerCase()))) : setData(productData)
+    search ? setData(productData?.data?.filter(product => product.name.toLowerCase().includes(search?.toLowerCase()))) : setData(productData)
     setSearchState(search);
   }, [search,productData]);
   const onHandleSearch = () => {
-    router.push(`/${i18Lang}/search?search=${searchState}`);
+    router.push(`/${i18Lang}/${ProductAPI}?search=${searchState}`);
   };
   const onChangeHandler = (value) => {
     if (!value) {
-      router.push(`/${i18Lang}/search?search=`);
+      router.push(`/${i18Lang}/products?search=`);
     }
     setSearchState(value);
   };

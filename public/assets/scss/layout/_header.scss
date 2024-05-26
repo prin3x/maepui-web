@@ -4019,13 +4019,13 @@ header {
         position: relative;
 
         &:nth-of-type(5n-4) {
-          display: none;
+          display: block;
 
           +li {
             margin-left: 0;
 
             body[dir="rtl"] & {
-              margin-left: unset;
+              margin-left: 22px;
               margin-right: 0;
             }
 

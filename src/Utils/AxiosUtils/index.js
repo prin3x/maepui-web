@@ -9,7 +9,7 @@ const client = axios.create({
 });
 
 const request = async ({ ...options }, router) => {
-  client.defaults.headers.common.Authorization = `Bearer ${getCookie("uat")}`;
+  client.defaults.headers.common.Authorization = `Bearer ${getCookie("authToken")}`;
   const onSuccess = (response) => response;
   const onError = (error) => {
     if (error?.response?.status == 403) {

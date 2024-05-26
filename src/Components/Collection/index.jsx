@@ -1,22 +1,20 @@
 'use client';
-import { useContext, useEffect, useState } from 'react';
-import Breadcrumb from '../Common/Breadcrumb';
 import { useCustomSearchParams } from '@/Utils/Hooks/useCustomSearchParams';
-import LayoutSidebar from './LayoutSidebar';
-import MainCollectionSlider from './CollectionSlider';
-import CollectionBanner from './CollectionBanner';
+import { useEffect, useState } from 'react';
+import Breadcrumb from '../Common/Breadcrumb';
 import CollectionLeftSidebar from './CollectionLeftSidebar';
-import CollectionOffCanvas from './CollectionOffcanvas';
-import ThemeOptionContext from '@/Helper/ThemeOptionsContext';
-import CollectionRightSidebar from './CollectionRightSidebar';
-import CollectionNoSidebar from './CollectionNoSidebar';
-import Loader from '@/Layout/Loader';
 
 const CollectionContain = () => {
   const [filter, setFilter] = useState({ category: [], price: [], attribute: [], rating: [], sortBy: '', field: '' });
-  const { themeOption, isLoading } = useContext(ThemeOptionContext);
-  const [category, attribute, price, rating, sortBy, field, layout] = useCustomSearchParams(['category', 'attribute', 'price', 'rating', 'sortBy', 'field', 'layout']);
-  const collectionLayout = layout?.layout ? layout?.layout : themeOption?.collection?.collection_layout;
+  const [category, attribute, price, rating, sortBy, field, search] = useCustomSearchParams([
+    'category',
+    'attribute',
+    'price',
+    'rating',
+    'sortBy',
+    'field',
+    'search',
+  ]);
   useEffect(() => {
     setFilter((prev) => {
       return {
@@ -27,15 +25,15 @@ const CollectionContain = () => {
         rating: rating ? rating?.rating?.split(',') : [],
         sortBy: sortBy ? sortBy?.sortBy : '',
         field: field ? field?.field : '',
+        search: search ? search?.search : '',
       };
     });
-  }, [category, attribute, price, rating, sortBy, field]);
+  }, [category, attribute, price, rating, sortBy, field, search]);
 
-  if (isLoading) return <Loader />;
   return (
     <>
       <Breadcrumb title={'Collection'} subNavigation={[{ name: 'Collection' }]} />
-      <CollectionLeftSidebar filter={filter} setFilter={setFilter}/>
+      <CollectionLeftSidebar filter={filter} setFilter={setFilter} />
     </>
   );
 };

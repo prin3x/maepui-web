@@ -13,9 +13,9 @@ const SearchBox = () => {
   const router = useRouter();
   const onHandleSearch = () => {
     if (searchValue) {
-      router.push(`/${i18Lang}/search?search=${searchValue}`);
+      router.push(`/${i18Lang}/collections?search=${searchValue}`);
     } else {
-      router.push(`/${i18Lang}/search`);
+      router.push(`/${i18Lang}/collections`);
     }
   };
   return (

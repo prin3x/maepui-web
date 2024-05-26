@@ -1,15 +1,13 @@
-import { useContext, useEffect } from 'react';
 import ThemeOptionContext from '@/Helper/ThemeOptionsContext';
 import TabFocusChecker from '@/Utils/CustomFunctions/TabFocus';
+import { useContext, useEffect } from 'react';
 import CookiesComponent from './Cookies';
+import ExitModal from './ExitModal';
 import MainFooter from './Footer';
 import MainHeader from './Header';
 import MobileMenu from './MobileMenu';
-import NewsLetterModal from './NewsLetter/NewsLetterModal';
 import RecentPurchase from './RecentPurchase';
-import StickyCompare from './StickyCompare';
 import TapTop from './TapTop';
-import ExitModal from './ExitModal';
 
 const SubLayout = ({ children }) => {
   const isTabActive = TabFocusChecker();
@@ -48,7 +46,6 @@ const SubLayout = ({ children }) => {
       <TapTop />
       <MainFooter />
       <CookiesComponent />
-      <StickyCompare />
       <RecentPurchase />
       {/* <NewsLetterModal /> */}
       <ExitModal />

@@ -20,7 +20,7 @@ const CheckoutSidebar = ({ values, setFieldValue }) => {
       points: 300,
       points_amount: 10,
       shipping_total: 0,
-      sub_total: 35.19,
+      subtotal: 35.19,
       tax_total: 2.54,
       total: 37.73,
       wallet_balance: 84.4,
@@ -49,7 +49,7 @@ const CheckoutSidebar = ({ values, setFieldValue }) => {
           <ul className={`summary-total position-relative`}>
             <li>
               <h4>{t('Subtotal')}</h4>
-              <h4 className='price'>{checkoutData?.total?.sub_total ? convertCurrency(checkoutData?.total?.sub_total) : t(`Notcalculatedyet`)}</h4>
+              <h4 className='price'>{checkoutData?.total?.subtotal ? convertCurrency(checkoutData?.total?.subtotal) : t(`Notcalculatedyet`)}</h4>
             </li>
             <li>
               <h4>{t('Shipping')}</h4>

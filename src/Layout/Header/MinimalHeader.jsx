@@ -7,12 +7,12 @@ import SupportBox from './MinimalHeaderComponent/SupportBox';
 
 const MinimalHeader = () => {
   return (
-    <header className='header-3'>
-      <div className='top-nav sticky-header sticky-header-2'>
-        <div className='container-fluid-lg'>
+    <header className="header-3">
+      <div className="top-nav sticky-header sticky-header-2">
+        <div className="container-fluid-lg">
           <Row>
             <Col xs={12}>
-              <div className='navbar-top'>
+              <div className="navbar-top">
                 <HeaderLogo />
                 <ResponsiveSearch />
                 <SearchBox />
@@ -23,9 +23,9 @@ const MinimalHeader = () => {
         </div>
       </div>
 
-      <div className='container-fluid-lg'>
+      <div className="container-fluid-lg">
         <Row>
-          <Col xs={12} className='position-relative'>
+          <Col xs={12} className="position-relative">
             <MinimalNavMenu />
           </Col>
         </Row>

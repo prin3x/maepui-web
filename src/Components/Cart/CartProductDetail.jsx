@@ -47,7 +47,7 @@ const CartProductDetail = ({ elem }) => {
 
             <li>
               <h5>
-                {t('Total')}: ${elem?.sub_total}
+                {t('Total')}: ${elem?.subtotal}
               </h5>
             </li>
           </ul>

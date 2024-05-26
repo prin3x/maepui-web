@@ -12,7 +12,7 @@ const CartSidebar = () => {
   const { cartProducts, getTotal } = useContext(CartContext);
   const { i18Lang } = useContext(I18NextContext);
   const { t } = useTranslation(i18Lang, 'common');
-  const isAuth = Cookies.get('uat');
+  const isAuth = Cookies.get('authToken');
   return (
     <Col xxl={3} xl={4}>
       <div className='summery-box p-sticky'>

@@ -59,11 +59,6 @@ const HeaderCartData = ({ cartStyle }) => {
         </div>
         <HeaderCartBottom modal={modal} setModal={setModal} shippingCal={shippingCal} shippingFreeAmt={shippingFreeAmt} />
       </div>
-      <div className={`confetti-wrapper ${confetti == 1 && cartCanvas ? 'show' : ''} `}>
-        {confettiItems?.map((elem, i) => (
-          <div className={`confetti-${elem}`} key={i}></div>
-        ))}
-      </div>
     </>
   );
 };

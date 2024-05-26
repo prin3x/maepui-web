@@ -29,7 +29,7 @@ const CartData = ({ elem }) => {
 
       <td className='subtotal'>
         <h4 className='table-title text-content'>{t('Total')}</h4>
-        <h5>{convertCurrency(elem?.sub_total)}</h5>
+        <h5>{convertCurrency(elem?.subtotal)}</h5>
       </td>
 
       <td className='save-remove'>

@@ -6,7 +6,7 @@ const LikeDisLike = ({ qna }) => {
   const [likeUnLike, setLikeUnLike] = useState('');
   const [likeCount, setLikeCount] = useState(0);
   const [unLikeCount, setUnLikeCount] = useState(0);
-  const isLogin = Cookies.get('uat');
+  const isLogin = Cookies.get('authToken');
   useEffect(() => {
     setLikeUnLike(qna?.reaction);
     setLikeCount(qna?.total_likes);

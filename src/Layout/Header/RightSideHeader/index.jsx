@@ -27,8 +27,7 @@ const RightSideHeader = ({ noContactUs, wishListIcon }) => {
             </div>
           </div>
         </li>
-        {!noContactUs && <HeaderContactUs />}
-        <HeaderWishList wishListIcon={wishListIcon} />
+        {/* <HeaderWishList wishListIcon={wishListIcon} /> */}
         <HeaderCart />
         <HeaderProfile />
       </ul>

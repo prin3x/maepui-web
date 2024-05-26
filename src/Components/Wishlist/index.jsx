@@ -1,13 +1,13 @@
 'use client';
-import { useEffect, useState } from 'react';
+import Loader from '@/Layout/Loader';
+import request from '@/Utils/AxiosUtils';
+import { WishlistAPI } from '@/Utils/AxiosUtils/API';
 import { useQuery } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
 import { Col } from 'reactstrap';
 import Breadcrumb from '../Common/Breadcrumb';
-import WrapperComponent from '../Common/WrapperComponent';
 import ProductBox1 from '../Common/ProductBox/ProductBox1/ProductBox1';
-import { WishlistAPI } from '@/Utils/AxiosUtils/API';
-import request from '@/Utils/AxiosUtils';
-import Loader from '@/Layout/Loader';
+import WrapperComponent from '../Common/WrapperComponent';
 
 const WishlistContent = () => {
   const [wishlistState, setWishlistState] = useState([]);

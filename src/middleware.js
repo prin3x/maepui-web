@@ -15,7 +15,7 @@ export async function middleware(request) {
 
     if (request.cookies.has("maintenance") && path !== `/${lng}/maintenance`) {
         let myHeaders = new Headers();
-        myHeaders.append("Authorization", `Bearer ${request.cookies.get("uat")?.value}`);
+        myHeaders.append("Authorization", `Bearer ${request.cookies.get("authToken")?.value}`);
         let requestOptions = {
             method: "GET",
             headers: myHeaders,

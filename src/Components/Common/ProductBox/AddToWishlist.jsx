@@ -9,7 +9,7 @@ const AddToWishlist = ({ productObj, customClass }) => {
   const { i18Lang } = useContext(I18NextContext);
   const router = useRouter();
   const handelWishlist = (productObj) => {
-    if (Cookies.get('uat')) {
+    if (Cookies.get('authToken')) {
       // Add your add to wishlist logic here
     } else {
       router.push(`/${i18Lang}/auth/login`);

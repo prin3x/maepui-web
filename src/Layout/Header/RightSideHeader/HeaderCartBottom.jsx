@@ -18,7 +18,7 @@ const HeaderCartBottom = ({ modal, setModal, shippingFreeAmt, shippingCal }) => 
   const { i18Lang } = useContext(I18NextContext);
   const { t } = useTranslation(i18Lang, 'common');
   const { cartProducts, getTotal } = useContext(CartContext);
-  const isAuth = Cookies.get('uat');
+  const isAuth = Cookies.get('authToken');
   // Getting total when cartProducts changes
   const total = useMemo(() => {
     return getTotal(cartProducts);
@@ -27,32 +27,34 @@ const HeaderCartBottom = ({ modal, setModal, shippingFreeAmt, shippingCal }) => 
     <>
       {cartProducts?.length > 0 && (
         <>
-          <div className='pere-text-box success-box'>
+          <div className="pere-text-box success-box">
             {shippingFreeAmt > getTotal(cartProducts) ? (
               <p>
-                {t('Spend')} <span className='shipping'>{convertCurrency(shippingFreeAmt - getTotal(cartProducts))}</span> {t('moreandenjoy')} <span className='shipping'>{t('FREESHIPPING!')}</span>
+                {t('Spend')}{' '}
+                <span className="shipping">{convertCurrency(shippingFreeAmt - getTotal(cartProducts))}</span>{' '}
+                {t('moreandenjoy')} <span className="shipping">{t('FREESHIPPING!')}</span>
               </p>
             ) : (
               <p>
-                <span className='shipping'>{t('Congratulations')}!</span> {t('Enjoyfreeshippingonus')}!
+                <span className="shipping">{t('Congratulations')}!</span> {t('Enjoyfreeshippingonus')}!
               </p>
             )}
             <Progress multi>
               {shippingCal <= 30 ? (
-                <Progress striped animated color='danger' value={shippingCal}>
-                  <div className='progress-icon'>
+                <Progress striped animated color="danger" value={shippingCal}>
+                  <div className="progress-icon">
                     <RiTruckLine />
                   </div>
                 </Progress>
               ) : shippingCal >= 31 && shippingCal <= 80 ? (
-                <Progress striped animated color='warning' value={shippingCal}>
-                  <div className='progress-icon'>
+                <Progress striped animated color="warning" value={shippingCal}>
+                  <div className="progress-icon">
                     <RiTruckLine />
                   </div>
                 </Progress>
               ) : (
                 <Progress striped animated value={shippingCal}>
-                  <div className='progress-icon'>
+                  <div className="progress-icon">
                     <RiTruckLine />
                   </div>
                 </Progress>
@@ -62,28 +64,32 @@ const HeaderCartBottom = ({ modal, setModal, shippingFreeAmt, shippingCal }) => 
           <SelectedCart setSelectedVariation={setSelectedVariation} setModal={setModal} modal={modal} />
         </>
       )}
-      <CartVariationModal modal={modal} setModal={setModal} selectedVariation={selectedVariation} />
+      {/* <CartVariationModal modal={modal} setModal={setModal} selectedVariation={selectedVariation} /> */}
       {!cartProducts?.length && (
-        <div className='empty-cart-box'>
-          <div className='empty-icon'>
+        <div className="empty-cart-box">
+          <div className="empty-icon">
             <RiShoppingCartLine />
           </div>
           <h5>{'Your cart is currently empty.'}</h5>
         </div>
       )}
       {cartProducts?.length ? (
-        <div className='bottom-box'>
-          <p className='free'>{t('Shippingandtaxesarecomputedatcheckout')}.</p>
+        <div className="bottom-box">
+          <p className="free">{t('Shippingandtaxesarecomputedatcheckout')}.</p>
           <>
-            <div className='price-box'>
+            <div className="price-box">
               <h5>{t('Total')} :</h5>
-              <h4 className='theme-color fw-bold'>{convertCurrency(total)}</h4>
+              <h4 className="theme-color fw-bold">{convertCurrency(total)}</h4>
             </div>
-            <div className='button-group'>
-              <Link href={`/${i18Lang}/cart`} className='btn btn-sm cart-button' onClick={() => setCartCanvas('')}>
+            <div className="button-group">
+              <Link href={`/${i18Lang}/cart`} className="btn btn-sm cart-button" onClick={() => setCartCanvas('')}>
                 {t('ViewCart')}
               </Link>
-              <Link href={isAuth ? `/${i18Lang}/checkout` : `/${i18Lang}/auth/login`} className='btn btn-sm cart-button theme-bg-color text-white' onClick={() => setCartCanvas('')}>
+              <Link
+                href={isAuth ? `/${i18Lang}/checkout` : `/${i18Lang}/auth/login`}
+                className="btn btn-sm cart-button theme-bg-color text-white"
+                onClick={() => setCartCanvas('')}
+              >
                 {t('Checkout')}
               </Link>
             </div>

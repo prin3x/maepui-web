@@ -1,16 +1,12 @@
-import React, { useContext } from 'react';
-import Link from 'next/link';
-import { RiCloseLine } from 'react-icons/ri';
-import ProductBoxAction from './ProductBox1Action';
-import ProductBox1Cart from './ProductBox1Cart';
-import ProductBox1Rating from './ProductBox1Rating';
-import Avatar from '../../Avatar';
-import { placeHolderImage } from '../../../../../Data/CommonPath';
 import Btn from '@/Elements/Buttons/Btn';
 import I18NextContext from '@/Helper/I18NextContext';
-import ProductBagde from './ProductBagde';
 import SettingContext from '@/Helper/SettingContext';
-import { ModifyString } from '@/Utils/CustomFunctions/ModifyString';
+import Link from 'next/link';
+import { useContext } from 'react';
+import { RiCloseLine } from 'react-icons/ri';
+import { placeHolderImage } from '../../../../../Data/CommonPath';
+import Avatar from '../../Avatar';
+import ProductBagde from './ProductBagde';
 
 const ProductBox1 = ({ imgUrl, productDetail, isClose, addAction = true, classObj, setWishlistState }) => {
   const { i18Lang } = useContext(I18NextContext);

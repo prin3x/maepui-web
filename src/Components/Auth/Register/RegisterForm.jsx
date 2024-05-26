@@ -48,7 +48,6 @@ const RegisterForm = () => {
       })}
       onSubmit={(values) => {
         // Add your logic here
-        console.log(values)
         mutate(values)
       }}
     >

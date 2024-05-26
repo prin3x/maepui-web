@@ -1,14 +1,13 @@
+import Btn from "@/Elements/Buttons/Btn";
+import I18NextContext from "@/Helper/I18NextContext";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
-import { useContext, useEffect } from "react";
-import Btn from "@/Elements/Buttons/Btn";
-import CompareContext from "@/Helper/CompareContext";
-import I18NextContext from "@/Helper/I18NextContext";
+import { useContext } from "react";
 import { RiRefreshLine } from "react-icons/ri";
 
 const AddToCompare = ({ productObj, customClass }) => {
   const { i18Lang } = useContext(I18NextContext);
-  const cookieUAT = Cookies.get("uat");
+  const cookieUAT = Cookies.get("authToken");
   const router = useRouter();
   const addToCompare = () => {
     if (!cookieUAT) {

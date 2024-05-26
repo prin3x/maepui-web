@@ -46,10 +46,10 @@ const SelectBundleProduct = ({ crossSellProduct }) => {
           return false;
         }
         if (index !== -1) {
-          let temp = { ...cloneCart[index], quantity: cloneCart[index].quantity + qty, sub_total: (cloneCart[index].quantity + qty) * cloneCart[index]?.product?.sale_price };
+          let temp = { ...cloneCart[index], quantity: cloneCart[index].quantity + qty, subtotal: (cloneCart[index].quantity + qty) * cloneCart[index]?.product?.sale_price };
           setCartProducts((prev) => [...prev.filter((value) => value?.product_id !== cloneCart[index]?.product_id), temp]);
         } else {
-          let params = { product: elem, product_id: elem.id, quantity: qty, sub_total: elem?.sale_price };
+          let params = { product: elem, product_id: elem.id, quantity: qty, subtotal: elem?.sale_price };
           setCartProducts((prev) => [...prev, params]);
         }
       });

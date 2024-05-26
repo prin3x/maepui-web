@@ -9,7 +9,7 @@ import { usePathname, useRouter } from 'next/navigation';
 const FilterSort = ({ filter, setFilter }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const toggle = () => setDropdownOpen((prevState) => !prevState);
-  const [attribute, price, category, layout] = useCustomSearchParams(['attribute', 'price', 'category', 'layout']);
+  const [attribute, price, category, layout, search] = useCustomSearchParams(['attribute', 'price', 'category', 'layout', 'search']);
   const { i18Lang } = useContext(I18NextContext);
   const { t } = useTranslation(i18Lang, 'common');
   const router = useRouter();
@@ -23,7 +23,14 @@ const FilterSort = ({ filter, setFilter }) => {
       };
     });
 
-    let queryParams = new URLSearchParams({ ...attribute, ...price, ...category, ...layout, sortBy: data.value }).toString();
+    let queryParams = new URLSearchParams({
+      ...attribute,
+      ...price,
+      ...category,
+      ...layout,
+      ...search,
+      sortBy: data.value,
+    }).toString();
     if (data && (data.value == 'asc' || data.value == 'desc')) {
       const fieldQuery = new URLSearchParams();
       fieldQuery.append('field', 'created_at');
@@ -32,8 +39,8 @@ const FilterSort = ({ filter, setFilter }) => {
     router.push(`${pathname}?${queryParams}`);
   };
   return (
-    <div className='category-dropdown'>
-      <h5 className='text-content'>{t('SortBy')} :</h5>
+    <div className="category-dropdown">
+      <h5 className="text-content">{t('SortBy')} :</h5>
       <Dropdown isOpen={dropdownOpen} toggle={toggle}>
         <DropdownToggle caret>
           <span>{filterSort.find((elem) => elem.value == filter.sortBy)?.label || t('Sort')}</span>

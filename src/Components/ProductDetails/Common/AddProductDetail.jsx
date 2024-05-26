@@ -10,7 +10,7 @@ import QuestionAnswerModal from './AllModal/QuestionAnswerModal';
 import SizeModal from './AllModal/SizeModal';
 
 const AddProductDetail = ({ productState }) => {
-  const isLogin = Cookies.get('uat');
+  const isLogin = Cookies.get('authToken');
   const { i18Lang } = useContext(I18NextContext);
   const { themeOption } = useContext(ThemeOptionContext);
   const { t } = useTranslation(i18Lang, 'common');

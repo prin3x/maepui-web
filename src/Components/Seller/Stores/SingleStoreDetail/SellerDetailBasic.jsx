@@ -13,7 +13,7 @@ const SellerDetailBasic = ({ filter, setFilter, StoreData, isLoading }) => {
         sellerClass={'col-xxl-3 col-lg-4'}
         isAttributes={false}
       />
-      <MainCollection filter={filter} setFilter={setFilter} sellerClass={'col-xxl-9 col-lg-8'} />
+      {/* <MainCollection filter={filter} setFilter={setFilter} sellerClass={'col-xxl-9 col-lg-8'} /> */}
     </WrapperComponent>
   );
 };

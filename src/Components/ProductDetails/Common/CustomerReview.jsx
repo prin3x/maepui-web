@@ -15,7 +15,7 @@ const CustomerReview = ({ productState }) => {
   const { i18Lang } = useContext(I18NextContext);
   const { t } = useTranslation(i18Lang, 'common');
   const [modal, setModal] = useState('');
-  const isLogin = Cookies.get('uat');
+  const isLogin = Cookies.get('authToken');
   const { data, isLoading, refetch } = useQuery([ReviewAPI], () => request({ url: ReviewAPI, params: { product_id: productState?.product?.id } }), {
     enabled: isLogin ? (productState?.product?.id ? true : false) : false,
     refetchOnWindowFocus: false,

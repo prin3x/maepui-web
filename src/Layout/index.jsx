@@ -1,19 +1,20 @@
 'use client';
-import React, { useContext, useEffect, useState } from 'react';
-import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import SubLayout from './SubLayout';
-import ThemeOptionProvider from '@/Helper/ThemeOptionsContext/ThemeOptionProvider';
-import SettingProvider from '@/Helper/SettingContext/SettingProvider';
-import ProductProvider from '@/Helper/ProductContext/ProductProvider';
-import I18NextContext from '@/Helper/I18NextContext';
-import CategoryProvider from '@/Helper/CategoryContext/CategoryProvider';
 import AccountProvider from '@/Helper/AccountContext/AccountProvider';
-import CartProvider from '@/Helper/CartContext/CartProvider';
-import { ToastContainer } from 'react-toastify';
 import BlogProvider from '@/Helper/BlogContext/BlogProvider';
-import CompareProvider from '@/Helper/CompareContext/CompareProvider';
-import ProductIdsProvider from '@/Helper/ProductIdsContext/ProductIdsProvider';
+import CartProvider from '@/Helper/CartContext/CartProvider';
+import CategoryProvider from '@/Helper/CategoryContext/CategoryProvider';
 import CurrencyProvider from '@/Helper/CurrencyContext/CurrencyProvider';
+import I18NextContext from '@/Helper/I18NextContext';
+import ProductProvider from '@/Helper/ProductContext/ProductProvider';
+import ProductIdsProvider from '@/Helper/ProductIdsContext/ProductIdsProvider';
+import SettingProvider from '@/Helper/SettingContext/SettingProvider';
+import ThemeOptionProvider from '@/Helper/ThemeOptionsContext/ThemeOptionProvider';
+import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { useContext, useEffect, useState } from 'react';
+import { ToastContainer } from 'react-toastify';
+import SubLayout from './SubLayout';
+
 
 const MainLayout = ({ children, lng  }) => {
   const { i18Lang, setI18Lang } = useContext(I18NextContext);
@@ -31,7 +32,6 @@ const MainLayout = ({ children, lng  }) => {
             <AccountProvider>
               <BlogProvider>
                 <ProductIdsProvider>
-                  <CompareProvider>
                     <CartProvider>
                       <CategoryProvider>
                         <ProductProvider>
@@ -43,12 +43,12 @@ const MainLayout = ({ children, lng  }) => {
                         </ProductProvider>
                       </CategoryProvider>
                     </CartProvider>
-                  </CompareProvider>
                 </ProductIdsProvider>
               </BlogProvider>
             </AccountProvider>
           </ThemeOptionProvider>
         </Hydrate>
+      <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
       <ToastContainer theme='colored' />
     </>

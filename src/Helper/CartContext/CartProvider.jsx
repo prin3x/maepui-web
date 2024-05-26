@@ -8,7 +8,7 @@ import { useQuery } from '@tanstack/react-query';
 import ThemeOptionContext from '../ThemeOptionsContext';
 
 const CartProvider = (props) => {
-  const isCookie = Cookies.get('uat');
+  const isCookie = Cookies.get('authToken');
   const [cartProducts, setCartProducts] = useState([]);
   const [variationModal, setVariationModal] = useState('');
   const [cartTotal, setCartTotal] = useState(0);
@@ -19,8 +19,11 @@ const CartProvider = (props) => {
     data: CartAPIData,
     isLoading: getCartLoading,
     refetch,
-  } = useQuery([AddToCartAPI], () => request({ url: AddToCartAPI }), { enabled: false, refetchOnWindowFocus: false, select: (res) => res?.data });
-
+  } = useQuery([AddToCartAPI], () => request({ url: AddToCartAPI }), {
+    enabled: true,
+    refetchOnWindowFocus: false,
+    select: (res) => res?.data,
+  });
   // Refetching Cart API
   useEffect(() => {
     if (isCookie) {
@@ -32,40 +35,45 @@ const CartProvider = (props) => {
   useEffect(() => {
     if (isCookie) {
       if (CartAPIData) {
-        setCartProducts(CartAPIData?.items);
+        setCartProducts(CartAPIData?.cartItems);
         setCartTotal(CartAPIData?.total);
       }
     } else {
       const isCartAvaliable = JSON.parse(localStorage.getItem('cart'));
-      if (isCartAvaliable?.items?.length > 0) {
-        setCartProducts(isCartAvaliable?.items);
+      if (isCartAvaliable?.cartItems?.length > 0) {
+        setCartProducts(isCartAvaliable?.cartItems);
         setCartTotal(isCartAvaliable?.total);
       }
     }
   }, [getCartLoading]);
 
+  const updateCartItem = (cartItem) => {
+    return request({ url: AddToCartAPI, method: 'POST', data: cartItem });
+  };
+
   // Adding data in localstorage when not Login
   useEffect(() => {
     storeInLocalStorage();
+    updateCartItem(cartProducts)
   }, [cartProducts]);
 
   // Getting total
   const total = useMemo(() => {
     return cartProducts?.reduce((prev, curr) => {
-      return prev + Number(curr.sub_total);
+      return prev + Number(curr.subtotal);
     }, 0);
   }, [getCartLoading, cartProducts]);
 
   // Total Function for child components
   const getTotal = (value) => {
     return value?.reduce((prev, curr) => {
-      return prev + Number(curr.sub_total);
+      return prev + Number(curr.subtotal);
     }, 0);
   };
 
   // Remove and Delete cart data from API and State
   const removeCart = (id, cartId) => {
-    const updatedCart = cartProducts?.filter((item) => item.product_id !== id);
+    const updatedCart = cartProducts?.filter((item) => item.product.id !== id);
     setCartProducts(updatedCart);
   };
 
@@ -74,37 +82,31 @@ const CartProvider = (props) => {
     const cartUid = null;
     const updatedQty = isProductQty ? isProductQty : 0 + qty;
     const cart = [...cartProducts];
-    const index = cart.findIndex((item) => item.product_id === productObj?.id);
-    let tempProductId = productObj?.id;
-    let tempVariantProductId = cloneVariation?.selectedVariation?.product_id;
-
-    // Checking conditions for Replace Cart
-    if (cart[index]?.variation && cloneVariation?.variation_id && tempProductId == tempVariantProductId && cloneVariation?.variation_id !== cart[index]?.variation_id) {
-      return replaceCart(updatedQty, productObj, cloneVariation);
-    }
-
+    const index = cart.findIndex((item) => item.product.id === productObj?.id);
     // Add data when not presence in Cart variable
     if (index === -1) {
       const params = {
-        id: null,
+        id: productObj?.id,
         product: productObj,
-        product_id: productObj?.id,
-        variation: cloneVariation?.selectedVariation ? cloneVariation?.selectedVariation : null,
-        variation_id: cloneVariation?.selectedVariation?.id ? cloneVariation?.selectedVariation?.id : null,
-        quantity: cloneVariation?.selectedVariation?.productQty ? cloneVariation?.selectedVariation?.productQty : updatedQty,
-        sub_total: cloneVariation?.selectedVariation?.sale_price ? updatedQty * cloneVariation?.selectedVariation?.sale_price : updatedQty * productObj?.sale_price,
+        quantity: cloneVariation?.selectedVariation?.productQty
+          ? cloneVariation?.selectedVariation?.productQty
+          : updatedQty,
+        subtotal: cloneVariation?.selectedVariation?.sale_price
+          ? updatedQty * cloneVariation?.selectedVariation?.sale_price
+          : updatedQty * productObj?.sale_price,
       };
-      isCookie ? setCartProducts((prev) => [...prev, params]) : setCartProducts((prev) => [...prev, params]);
+      setCartProducts((prev) => {
+        const newCart = [...prev, params];
+        return newCart;
+      });
+
+      cart.push(params);
     } else {
       // Checking the Stock QTY of paricular product
-      const productStockQty = cart[index]?.variation?.quantity ? cart[index]?.variation?.quantity : cart[index]?.product?.quantity;
+      const productStockQty = cart[index]?.product?.quantity;
       if (productStockQty < cart[index]?.quantity + qty) {
         ToastNotification('error', `You can not add more items than available. In stock ${productStockQty} items.`);
         return false;
-      }
-
-      if (cart[index]?.variation) {
-        cart[index].variation.selected_variation = cart[index]?.variation?.attribute_values?.map((values) => values.value).join('/');
       }
 
       const newQuantity = cart[index].quantity + qty;
@@ -116,11 +118,12 @@ const CartProvider = (props) => {
           ...cart[index],
           id: cartUid?.id ? cartUid?.id : cart[index].id ? cart[index].id : null,
           quantity: newQuantity,
-          sub_total: newQuantity * (cart[index]?.variation ? cart[index]?.variation?.sale_price : cart[index]?.product?.sale_price),
+          subtotal: newQuantity * cart[index]?.product?.price,
         };
-        isCookie ? setCartProducts([...cart]) : setCartProducts([...cart]);
+        setCartProducts([...cart]);
       }
     }
+
     // Update the productQty state immediately after updating the cartProducts state
     if (isCookie) {
       setIsProductQty && setIsProductQty(updatedQty);
@@ -141,7 +144,9 @@ const CartProvider = (props) => {
     const productQty = cart[index]?.variation ? cart[index]?.variation?.quantity : cart[index]?.product?.quantity;
 
     if (cart[index]?.variation) {
-      cart[index].variation.selected_variation = cart[index]?.variation?.attribute_values?.map((values) => values.value).join('/');
+      cart[index].variation.selected_variation = cart[index]?.variation?.attribute_values
+        ?.map((values) => values.value)
+        .join('/');
     }
 
     // Checking the Stock QTY of paricular product
@@ -157,7 +162,9 @@ const CartProvider = (props) => {
       variation: cloneVariation?.selectedVariation ? cloneVariation?.selectedVariation : null,
       variation_id: cloneVariation?.selectedVariation?.id ? cloneVariation?.selectedVariation?.id : null,
       quantity: cloneVariation?.productQty ? cloneVariation?.productQty : updatedQty,
-      sub_total: cloneVariation?.selectedVariation?.sale_price ? updatedQty * cloneVariation?.selectedVariation?.sale_price : updatedQty * productObj?.sale_price,
+      subtotal: cloneVariation?.selectedVariation?.sale_price
+        ? updatedQty * cloneVariation?.selectedVariation?.sale_price
+        : updatedQty * productObj?.sale_price,
     };
 
     isCookie
@@ -201,7 +208,8 @@ const CartProvider = (props) => {
         variationModal,
         setVariationModal,
         replaceCart,
-      }}>
+      }}
+    >
       {props.children}
     </CartContext.Provider>
   );

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^4.29.15",
+    "@tanstack/react-query-devtools": "4",
     "accept-language": "^3.0.18",
     "axios": "^1.4.0",
     "bootstrap": "^5.3.2",

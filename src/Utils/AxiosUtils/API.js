@@ -42,7 +42,7 @@ export const SettingAPI = "/settings"
 export const WishlistAPI = "/wishlist"
 
 // Cart API
-export const AddToCartAPI = '/cart'
+export const AddToCartAPI = '/carts'
 
 // Contact Us API
 export const ContactUsAPI = '/contact-us'
