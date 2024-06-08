@@ -20,6 +20,9 @@ const AccountProvider = (props) => {
     Cookies.remove('authToken', { path: '/' });
     Cookies.remove('account');
     mutate();
+
+    // Clear cart items from localStorage
+    localStorage.removeItem('cartItems');
   };
 
   useEffect(() => {

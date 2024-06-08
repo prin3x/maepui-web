@@ -94,9 +94,9 @@
       "footer_style": "light_mode",
       "footer_copyright": true,
       "copyright_content": "©2023 Fastkart All rights reserved",
-      "footer_about": "Discover convenience redefined at our multipurpose store. From fresh groceries to the latest fashion trends, find everything you need under one roof. Your one-stop shopping destination for a diverse range of products.",
+      "footer_about": "",
       "about_address": "1418 Riverwood Drive, CA 96052, US",
-      "about_email": "support@fastkart.com",
+      "about_email": "maepui@maepui.com",
       "footer_categories": [
         6,
         5,
@@ -158,7 +158,7 @@
         }
       ],
       "support_number": "+1-555-186-5359",
-      "support_email": "support@fastkart.com",
+      "support_email": "maepui@maepui.com",
       "play_store_url": "https://play.google.com/",
       "app_store_url": "https://apple.com/",
       "social_media_enable": true,
@@ -198,8 +198,8 @@
     "seller": {
       "about": {
         "status": true,
-        "title": "Become a seller on Fastkart...",
-        "description": "Ready to showcase your products to the world? Join our dynamic marketplace and become a seller at our thriving multipurpose store. With a diverse customer base and a wide range of categories including groceries, fashion, electronics, and more, you'll have the perfect platform to reach a vast audience.\n\nAs a seller, you'll benefit from our user-friendly interface, seamless payment processing, and dedicated support to ensure your products shine. Whether you're a local artisan or a growing brand, our store provides the visibility and tools you need to succeed.\n\nTap into our established customer traffic, set up your shop with ease, and let your products take center stage. Join us in creating a shopping experience that caters to every need and taste. Your journey to success starts here – become a seller at our multipurpose store today!",
+        "title": "",
+        "description": "",
         "image_url": "https://react.pixelstrap.net/fastkart/assets/banner-2.jpg"
       },
       "services": { 
@@ -259,7 +259,7 @@
       "detail_2": {
         "label": "Email",
         "icon": "ri-mail-line",
-        "text": "support@fastkart.com"
+        "text": "maepui@maepui.com"
       },
       "detail_3": {
         "label": "London Office",

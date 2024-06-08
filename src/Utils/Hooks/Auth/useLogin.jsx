@@ -13,7 +13,7 @@ export const LogInSchema = YupObject({
   password: passwordSchema,
 });
 
-const LoginHandle = (responseData, router, i18Lang, refetch, compareRefetch) => {
+const LoginHandle = (responseData, router, i18Lang, refetch) => {
   if (responseData.status === 200 || responseData.status === 201) {
     Cookies.set('authToken', responseData.data?.access_token, { path: '/', expires: new Date(Date.now() + 24 * 60 * 6000) });
     const ISSERVER = typeof window === 'undefined';
@@ -22,8 +22,7 @@ const LoginHandle = (responseData, router, i18Lang, refetch, compareRefetch) => 
       localStorage.setItem('account', JSON.stringify(responseData.data));
     }
     refetch();
-    compareRefetch();
-    router.push(`/${i18Lang}/account/dashboard`);
+    router.push(`/${i18Lang}/`);
   }
 };
 

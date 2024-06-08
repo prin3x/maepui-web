@@ -31,7 +31,7 @@ export const categoryTags = [
 ];
 
 export const optionListMinimal = [
-  { id: 1, icon: <RiSearchLine />, customClass: 'search-box search-icon' },
+  // { id: 1, icon: <RiSearchLine />, customClass: 'search-box search-icon' },
   // { id: 2, path: '/compare', icon: <RiArrowLeftRightLine /> },
   // { id: 3, path: '/wishlist', icon: <RiHeartLine />, customClass: 'swap-icon' },
   { id: 4, icon: <RiShoppingCartLine />, customClass: 'bag-icon', isBadge: true },

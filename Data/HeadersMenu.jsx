@@ -13,7 +13,7 @@ export const headerMenu = [
   },
   {
     id:3,
-    title: "About Us",
+    title: "AboutUs",
     customChildren: false,
     path: "/about-us",
   },
@@ -25,13 +25,13 @@ export const headerMenu = [
   },
   {
     id: 7,
-    title: "FAQs",
+    title: "FrequentlyAskedQuestions",
     customChildren: false,
     path: "/faq",
   },
   {
     id: 8,
-    title: "Contact Us",
+    title: "ContactUs",
     customChildren: false,
     path: "/contact-us",
   }

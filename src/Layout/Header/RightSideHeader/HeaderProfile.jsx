@@ -22,7 +22,14 @@ const HeaderProfile = () => {
 
   // if no accountData then return link to login page
   if (!accountData) {
-    return <Link href={`/${i18Lang}/auth/login`}>{t('Login')}</Link>;
+    return (
+      <button
+        className="theme-bg-color btn-md fw-bold text-light btn btn-secondary"
+        onClick={() => router.push(`/${i18Lang}/auth/login`)}
+      >
+        {t('Login')}
+      </button>
+    );
   }
 
   return (
@@ -48,7 +55,12 @@ const HeaderProfile = () => {
               <RiLogoutBoxRLine className="me-2" /> {t('Logout')}
             </a>
           </li>
-          <ConfirmationModal modal={modal} setModal={setModal} confirmFunction={() => handleLogout(router, mutate)} isLoading={isLoading} />
+          <ConfirmationModal
+            modal={modal}
+            setModal={setModal}
+            confirmFunction={() => handleLogout(router, mutate)}
+            isLoading={isLoading}
+          />
         </ul>
       </div>
     </li>

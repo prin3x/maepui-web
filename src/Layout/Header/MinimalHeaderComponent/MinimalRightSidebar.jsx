@@ -48,7 +48,7 @@ const MinimalRightSidebar = () => {
       </ul>
 
       <div className="user-box">
-        <span className="header-icon">
+        <span className=''>
           <HeaderProfile />
         </span>
       </div>

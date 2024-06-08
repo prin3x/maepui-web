@@ -11,15 +11,13 @@ import PlaceOrder from './PlaceOrder';
 
 const CheckoutSidebar = ({ values, setFieldValue }) => {
   const { cartProducts } = useContext(CartContext);
-  const [storeCoupon, setStoreCoupon] = useState();
-  // It Just Static Values as per cart default value (When you are using api then you need calculate as per your requirement)
   const [checkoutData, setCheckoutData] = useState({
     total: {
       shipping_total: 0,
-      subtotal: 35.19,
-      tax_total: 2.54,
-      total: 37.73,
-      wallet_balance: 84.4,
+      subtotal: 0,
+      tax_total: 0,
+      total: 0,
+      wallet_balance: 0,
     },
   });
   const { convertCurrency } = useContext(SettingContext);
@@ -40,8 +38,6 @@ const CheckoutSidebar = ({ values, setFieldValue }) => {
       values['cancel_url'] = process.env.PAYMENT_CANCEL_URL;
     }
   }, []);
-
-  console.log(cartProducts);
 
   useEffect(() => {
     let subtotal = 0;

@@ -15,7 +15,7 @@ const CartProductDetail = ({ elem }) => {
     <td className='product-detail'>
       <div className='product border-0'>
         <Link href={`/${i18Lang}/product/${elem?.product?.slug}`} className='product-image'>
-          <Avatar customImageClass={'img-fluid'} data={elem?.variation?.variation_image ?? elem?.product?.product_thumbnail} placeHolder={placeHolderImage} name={elem?.product?.name} />
+          <Avatar customImageClass={'img-fluid'} data={elem?.variation?.variation_image ?? elem?.product?.thumbnail?.url} placeHolder={placeHolderImage} name={elem?.product?.name} />
         </Link>
         <div className='product-detail'>
           <ul>

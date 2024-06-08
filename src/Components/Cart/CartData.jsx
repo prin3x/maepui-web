@@ -34,7 +34,6 @@ const CartData = ({ elem }) => {
 
       <td className='save-remove'>
         <h4 className='table-title text-content'>{t('Action')}</h4>
-        <a className='save notifi-wishlist'>{t('Saveforlater')}</a>
         <a className='remove close_button' onClick={() => removeCart(elem.product_id, elem?.id)}>
           {t('Remove')}
         </a>
