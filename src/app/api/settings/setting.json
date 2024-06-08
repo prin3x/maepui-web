@@ -76,23 +76,7 @@
     },
     "payment_methods": [
       {
-        "name": "cod",
-        "status": true
-      },
-      {
-        "name": "paypal",
-        "status": true
-      },
-      {
-        "name": "stripe",
-        "status": true
-      },
-      {
-        "name": "mollie",
-        "status": true
-      },
-      {
-        "name": "razorpay",
+        "name": "Promptpay",
         "status": true
       }
     ]

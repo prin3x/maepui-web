@@ -10,15 +10,11 @@ import ApplyCoupon from './ApplyCoupon';
 import PlaceOrder from './PlaceOrder';
 
 const CheckoutSidebar = ({ values, setFieldValue }) => {
+  const { cartProducts } = useContext(CartContext);
   const [storeCoupon, setStoreCoupon] = useState();
   // It Just Static Values as per cart default value (When you are using api then you need calculate as per your requirement)
   const [checkoutData, setCheckoutData] = useState({
     total: {
-      convert_point_amount: -10,
-      convert_wallet_balance: -84.4,
-      coupon_total_discount: 10,
-      points: 300,
-      points_amount: 10,
       shipping_total: 0,
       subtotal: 35.19,
       tax_total: 2.54,
@@ -27,12 +23,16 @@ const CheckoutSidebar = ({ values, setFieldValue }) => {
     },
   });
   const { convertCurrency } = useContext(SettingContext);
-  const { cartProducts } = useContext(CartContext);
   const { i18Lang } = useContext(I18NextContext);
   const { t } = useTranslation(i18Lang, 'common');
   // Submitting data on Checkout
   useEffect(() => {
-    if (values['billing_address_id'] && values['shipping_address_id'] && values['delivery_description'] && values['payment_method']) {
+    if (
+      values['billing_address_id'] &&
+      values['shipping_address_id'] &&
+      values['delivery_description'] &&
+      values['payment_method']
+    ) {
       values['variation_id'] = '';
       delete values['total'];
       values['products'] = cartProducts;
@@ -41,32 +41,70 @@ const CheckoutSidebar = ({ values, setFieldValue }) => {
     }
   }, []);
 
+  console.log(cartProducts);
+
+  useEffect(() => {
+    let subtotal = 0;
+    let shipping_total = 0;
+  
+    cartProducts.forEach(product => {
+      subtotal += product.subtotal; // subtotal already includes tax
+      if (!product.product.is_free_shipping && product.product.shipping_price) {
+        shipping_total += product.product.shipping_price;
+      }
+    });
+  
+    const total = subtotal + shipping_total; 
+  
+    setCheckoutData({
+      total: {
+        shipping_total: shipping_total,
+        subtotal: subtotal,
+        tax_total: 0,
+        total: total,
+        wallet_balance: checkoutData.total.wallet_balance, 
+      },
+    });
+  }, [cartProducts]);
+
   return (
-    <Col xxl='4' xl='5'>
-      <Card className='pos-detail-card'>
+    <Col xxl="4" xl="5">
+      <Card className="pos-detail-card">
         <SidebarProduct values={values} setFieldValue={setFieldValue} />
-        <div className='pos-loader'>
+        <div className="pos-loader">
           <ul className={`summary-total position-relative`}>
             <li>
               <h4>{t('Subtotal')}</h4>
-              <h4 className='price'>{checkoutData?.total?.subtotal ? convertCurrency(checkoutData?.total?.subtotal) : t(`Notcalculatedyet`)}</h4>
+              <h4 className="price">
+                {checkoutData?.total?.subtotal ? convertCurrency(checkoutData?.total?.subtotal) : t(`Notcalculatedyet`)}
+              </h4>
             </li>
             <li>
               <h4>{t('Shipping')}</h4>
-              <h4 className='price'>{checkoutData?.total?.shipping_total >= 0 ? convertCurrency(checkoutData?.total?.shipping_total) : t(`Notcalculatedyet`)}</h4>
+              <h4 className="price">
+                {checkoutData?.total?.shipping_total >= 0
+                  ? convertCurrency(checkoutData?.total?.shipping_total)
+                  : t(`Notcalculatedyet`)}
+              </h4>
             </li>
-            <li>
+            {/* <li>
               <h4>{t('Tax')}</h4>
-              <h4 className='price'>{checkoutData?.total?.tax_total ? convertCurrency(checkoutData?.total?.tax_total) : t(`Notcalculatedyet`)}</h4>
-            </li>
+              <h4 className="price">
+                {checkoutData?.total?.tax_total
+                  ? convertCurrency(checkoutData?.total?.tax_total)
+                  : t(`Notcalculatedyet`)}
+              </h4>
+            </li> */}
 
-            <PointWallet values={values} setFieldValue={setFieldValue} checkoutData={checkoutData} />
+            {/* <PointWallet values={values} setFieldValue={setFieldValue} checkoutData={checkoutData} /> */}
 
-            <ApplyCoupon setFieldValue={setFieldValue} setStoreCoupon={setStoreCoupon} storeCoupon={storeCoupon} />
+            {/* <ApplyCoupon setFieldValue={setFieldValue} setStoreCoupon={setStoreCoupon} storeCoupon={storeCoupon} /> */}
 
-            <li className='list-total'>
+            <li className="list-total">
               <h4>{t('Total')}</h4>
-              <h4 className='price'>{checkoutData?.total?.total ? convertCurrency(checkoutData?.total?.total) : t(`Notcalculatedyet`)}</h4>
+              <h4 className="price">
+                {checkoutData?.total?.total ? convertCurrency(checkoutData?.total?.total) : t(`Notcalculatedyet`)}
+              </h4>
             </li>
           </ul>
         </div>
