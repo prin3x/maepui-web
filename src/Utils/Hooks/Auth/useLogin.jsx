@@ -21,6 +21,7 @@ const LoginHandle = (responseData, router, i18Lang, refetch) => {
       Cookies.set('account', JSON.stringify(responseData.data));
       localStorage.setItem('account', JSON.stringify(responseData.data));
     }
+    localStorage.removeItem('cart');
     refetch();
     router.push(`/${i18Lang}/`);
   }

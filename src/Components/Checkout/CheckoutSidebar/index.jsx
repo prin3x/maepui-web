@@ -11,6 +11,7 @@ import PlaceOrder from './PlaceOrder';
 
 const CheckoutSidebar = ({ values, setFieldValue }) => {
   const { cartProducts } = useContext(CartContext);
+  console.log(cartProducts)
   const [checkoutData, setCheckoutData] = useState({
     total: {
       shipping_total: 0,
@@ -23,21 +24,6 @@ const CheckoutSidebar = ({ values, setFieldValue }) => {
   const { convertCurrency } = useContext(SettingContext);
   const { i18Lang } = useContext(I18NextContext);
   const { t } = useTranslation(i18Lang, 'common');
-  // Submitting data on Checkout
-  useEffect(() => {
-    if (
-      values['billing_address_id'] &&
-      values['shipping_address_id'] &&
-      values['delivery_description'] &&
-      values['payment_method']
-    ) {
-      values['variation_id'] = '';
-      delete values['total'];
-      values['products'] = cartProducts;
-      values['return_url'] = `${process.env.PAYMENT_RETURN_URL}${i18Lang}/account/order/details`;
-      values['cancel_url'] = process.env.PAYMENT_CANCEL_URL;
-    }
-  }, []);
 
   useEffect(() => {
     let subtotal = 0;
@@ -63,6 +49,25 @@ const CheckoutSidebar = ({ values, setFieldValue }) => {
     });
   }, [cartProducts]);
 
+  const createOrderParams = () => {
+    return {
+      shipping_address_id: values.shipping_address_id,
+      billing_address_id: values.billing_address_id,
+      total_amount: checkoutData.total.total,
+      payment_method: values.payment_method,
+      shipping_method: values.shipping_method,
+      notes: values.notes,
+      tracking_information: values.tracking_information,
+      products: cartProducts.map(product => ({
+        product_id: product.product.id,
+        quantity: product.quantity,
+        price: product.product.price,
+        subtotal: product.subtotal,
+        total: product.total
+      }))
+    };
+  };
+
   return (
     <Col xxl="4" xl="5">
       <Card className="pos-detail-card">
@@ -83,19 +88,6 @@ const CheckoutSidebar = ({ values, setFieldValue }) => {
                   : t(`Notcalculatedyet`)}
               </h4>
             </li>
-            {/* <li>
-              <h4>{t('Tax')}</h4>
-              <h4 className="price">
-                {checkoutData?.total?.tax_total
-                  ? convertCurrency(checkoutData?.total?.tax_total)
-                  : t(`Notcalculatedyet`)}
-              </h4>
-            </li> */}
-
-            {/* <PointWallet values={values} setFieldValue={setFieldValue} checkoutData={checkoutData} /> */}
-
-            {/* <ApplyCoupon setFieldValue={setFieldValue} setStoreCoupon={setStoreCoupon} storeCoupon={storeCoupon} /> */}
-
             <li className="list-total">
               <h4>{t('Total')}</h4>
               <h4 className="price">
@@ -104,7 +96,7 @@ const CheckoutSidebar = ({ values, setFieldValue }) => {
             </li>
           </ul>
         </div>
-        <PlaceOrder values={values} />
+        <PlaceOrder values={values} createOrderParams={createOrderParams} />
       </Card>
     </Col>
   );

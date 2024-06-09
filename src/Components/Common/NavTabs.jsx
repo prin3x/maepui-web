@@ -28,6 +28,7 @@ const NavTabTitles = ({ classes = {}, activeTab, setActiveTab, titleList, isLogo
     Cookies.remove('CookieAccept');
     localStorage.removeItem('account');
     localStorage.removeItem('role');
+    localStorage.removeItem('cart');
     router.push(`/${i18Lang}/auth/login`);
     setModal(false);
   });

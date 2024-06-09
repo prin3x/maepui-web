@@ -20,7 +20,7 @@ const MyOrders = () => {
   const { i18Lang } = useContext(I18NextContext);
   const { t } = useTranslation(i18Lang, 'common');
   const { convertCurrency } = useContext(SettingContext);
-  const { data, isLoading, refetch } = useQuery([page], () => request({ url: OrderAPI, params: { page: page, paginate: 10 } }), {
+  const { data, isLoading, refetch } = useQuery([page], () => request({ url: `${OrderAPI}/myorders`, params: { page: page, paginate: 10 } }), {
     enabled: true,
     refetchOnWindowFocus: false,
     refetchOnMount: false,
@@ -30,7 +30,7 @@ const MyOrders = () => {
   return (
     <>
       <AccountHeading title="MyOrders" />
-      {data?.data?.length > 0 ? (
+      {data?.length > 0 ? (
         <>
           <div className='total-box mt-0'>
             <div className='wallet-table mt-0'>
@@ -45,14 +45,14 @@ const MyOrders = () => {
                     <th>{t('PaymentMethod')}</th>
                     <th>{t('Option')}</th>
                   </tr>
-                  {data?.data?.map((order, i) => (
+                  {data?.map((order, i) => (
                     <tr key={i}>
                       <td>{i + 1}</td>
                       <td>
                         <span className='fw-bolder'>#{order.order_number}</span>
                       </td>
                       <td>{dateFormate(order?.created_at)}</td>
-                      <td>{convertCurrency(order?.total)} </td>
+                      <td>{convertCurrency(order?.total_amount)} </td>
                       <td>
                         <div className={`status-${order.payment_status.toLowerCase()}`}>
                           <span>{order.payment_status}</span>

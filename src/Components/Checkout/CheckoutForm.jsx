@@ -30,9 +30,7 @@ const CheckoutForm = () => {
   useEffect(() => {
     accountData?.addresses.length > 0 && setAddress((prev) => [...accountData?.addresses]);
   }, [accountData]);
-  const addAddress = () => {
-    setModal('');
-  };
+
   return (
     <Formik initialValues={{}}>
       {({ values, setFieldValue }) => (

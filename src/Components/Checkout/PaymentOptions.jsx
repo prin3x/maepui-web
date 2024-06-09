@@ -19,7 +19,7 @@ const PaymentOptions = ({ values, setFieldValue }) => {
     },
   ];
   useEffect(() => {
-    setFieldValue('payment_method', 'cod');
+    setFieldValue('payment_method', 'qr_promptpay');
     setInitial(0);
   }, []);
   return (

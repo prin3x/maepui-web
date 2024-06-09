@@ -20,12 +20,12 @@ export const sidebarMenu = [
   //   id: 'point',
   //   path: '/account/point',
   // },
-  // {
-  //   title: 'MyOrders',
-  //   icon: <RiFileTextLine />,
-  //   id: 'order',
-  //   path: '/account/order',
-  // },
+  {
+    title: 'MyOrders',
+    icon: <RiFileTextLine />,
+    id: 'order',
+    path: '/account/order',
+  },
   {
     title: 'SavedAddress',
     icon: <RiMapPinLine />,
