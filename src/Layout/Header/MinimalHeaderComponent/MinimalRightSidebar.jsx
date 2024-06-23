@@ -8,11 +8,13 @@ import CartContext from '@/Helper/CartContext';
 import ThemeOptionContext from '@/Helper/ThemeOptionsContext';
 import HeaderCartData from '../RightSideHeader/HeaderCartData';
 import HeaderProfile from '../RightSideHeader/HeaderProfile';
+import AccountContext from '@/Helper/AccountContext';
 
 const MinimalRightSidebar = () => {
   const { i18Lang } = useContext(I18NextContext);
   const { t } = useTranslation(i18Lang, 'common');
   const { cartProducts } = useContext(CartContext);
+  const { accountData } = useContext(AccountContext);
   const { themeOption, cartCanvas, setCartCanvas } = useContext(ThemeOptionContext);
   const cartStyle = useMemo(() => {
     return themeOption?.general?.cart_style ? themeOption?.general?.cart_style : 'cart_sidebar';
@@ -22,8 +24,9 @@ const MinimalRightSidebar = () => {
       <ul className="option-list-2">
         {optionListMinimal.map((elem) => (
           <Fragment key={elem.id}>
-            <li
-              className="onhover-dropdown"
+            {accountData && (
+              <li
+                className="onhover-dropdown"
               onClick={() => elem?.isBadge && cartStyle == 'cart_sidebar' && !cartCanvas && setCartCanvas(!cartCanvas)}
             >
               {elem?.path ? (
@@ -41,8 +44,9 @@ const MinimalRightSidebar = () => {
                   {elem.icon}
                 </a>
               )}
-              {elem.isBadge && <HeaderCartData cartStyle={'cart_sidebar'} />}
-            </li>
+                {elem.isBadge && <HeaderCartData cartStyle={'cart_sidebar'} />}
+              </li>
+            )}
           </Fragment>
         ))}
       </ul>

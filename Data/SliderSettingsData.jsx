@@ -414,7 +414,7 @@ export const romeBlogSliderOption = {
 
 export const madridCategorySlider = {
   arrows: true,
-  infinite: true,
+  infinite: false, // Disable infinite loop
   slidesToShow: 8,
   slidesToScroll: 1,
   responsive: [

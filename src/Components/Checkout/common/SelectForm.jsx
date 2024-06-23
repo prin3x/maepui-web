@@ -16,7 +16,7 @@ const SelectForm = ({ setModal }) => {
       <Row>
         <SimpleInputField
           nameList={[
-            { name: 'title', placeholder: t('EnterTitle'), toplabel: 'Title', colprops: { xs: 12 } },
+            { name: 'title', placeholder: t('ชื่อ นามสกุล'), toplabel: 'ชื่อ', colprops: { xs: 12 } },
             {
               name: 'address',
               placeholder: t('EnterAddress'),

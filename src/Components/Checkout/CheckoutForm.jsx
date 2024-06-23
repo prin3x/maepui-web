@@ -14,13 +14,13 @@ import { toast } from 'react-toastify';
 const CheckoutForm = () => {
   const { accountData, refetch } = useContext(AccountContext);
   const [address, setAddress] = useState([]);
+  const [addressFromLocalStorage, setAddressFromLocalStorage] = useState([]);
   const [modal, setModal] = useState('');
   const queryClient = useQueryClient();
 
   const mutateAddress = useMutation({
     mutationFn: (values) => request({ url: `${AddressAPI}/`, method: 'POST', data: values }),
     onSuccess: () => {
-      console.log('Create address success');
       toast.success('Create address success');
       setModal('');
       queryClient.invalidateQueries([SelfAPI]);
@@ -28,8 +28,16 @@ const CheckoutForm = () => {
   });
 
   useEffect(() => {
-    accountData?.addresses.length > 0 && setAddress((prev) => [...accountData?.addresses]);
-  }, [accountData]);
+    // If user is not authenticated, set the address from local storage
+    if (!accountData) {
+      const address = JSON.parse(localStorage.getItem('address'));
+      if (address) {
+        setAddress(address);
+      }
+    } else {
+      accountData?.addresses.length > 0 && setAddress((prev) => [...accountData?.addresses]);
+    }
+  }, [accountData, addressFromLocalStorage]);
 
   return (
     <Formik initialValues={{}}>
@@ -52,6 +60,7 @@ const CheckoutForm = () => {
                         modal={modal}
                         mutate={mutateAddress}
                         setModal={setModal}
+                        setAddressFromLocalStorage={setAddressFromLocalStorage}
                       />
                       <DeliveryAddress
                         key="billing"
@@ -64,6 +73,7 @@ const CheckoutForm = () => {
                         modal={modal}
                         mutate={mutateAddress}
                         setModal={setModal}
+                        setAddressFromLocalStorage={setAddressFromLocalStorage}
                       />
                       {/* <DeliveryOptions values={values} setFieldValue={setFieldValue} /> */}
                       <PaymentOptions values={values} setFieldValue={setFieldValue} />

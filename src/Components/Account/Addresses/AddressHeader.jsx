@@ -35,6 +35,13 @@ const AddressHeader = () => {
     },
   });
 
+  const storeAddressInLocalStorage = (address) => {
+    localStorage.setItem('address', JSON.stringify(address));
+    toast.success('Create address success');
+    setModal(false);
+    setEditAddress(null);
+  };
+
   const editMutate = useMutation({
     mutationFn: (values) => request({ url: `${AddressAPI}/address/${editAddress.id}`, method: 'PUT', data: values }),
     onSuccess: () => {
@@ -82,6 +89,7 @@ const AddressHeader = () => {
               editAddress={editAddress}
               modal={modal}
               setAddressState={setAddressState}
+              storeAddressInLocalStorage={storeAddressInLocalStorage}
             />
           </div>
         </CustomModal>

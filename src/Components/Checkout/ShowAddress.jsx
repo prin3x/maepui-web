@@ -23,7 +23,7 @@ const ShowAddress = ({ item, type, index }) => {
               <li>
                 <p className='text-content'>
                   <span className='text-title'>{t('Address')} : </span>
-                  {item?.street} {item?.state?.name}, {item?.country?.name}
+                  {item?.address}
                 </p>
               </li>
               <li>

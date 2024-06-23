@@ -7,10 +7,27 @@ import CustomModal from '../Common/CustomModal';
 import AddAddressForm from './common/AddAddressForm';
 import I18NextContext from '@/Helper/I18NextContext';
 import ShowAddress from './ShowAddress';
+import { toast } from 'react-toastify';
 
-const DeliveryAddress = ({ type, title, address, modal, mutate, setModal, setFieldValue }) => {
+const DeliveryAddress = ({
+  type,
+  title,
+  address,
+  modal,
+  mutate,
+  setModal,
+  setFieldValue,
+  setAddressFromLocalStorage,
+}) => {
   const { i18Lang } = useContext(I18NextContext);
   const { t } = useTranslation(i18Lang, 'common');
+
+  const storeAddressInLocalStorage = (address) => {
+    setAddressFromLocalStorage([address]);
+    localStorage.setItem('address', JSON.stringify([address]));
+    toast.success('สร้างที่อยู่สำเร็จ');
+    setModal(false);
+  };
 
   useEffect(() => {
     address?.length > 0 && setFieldValue(`${type}_address_id`, address[0].id);
@@ -49,7 +66,12 @@ const DeliveryAddress = ({ type, title, address, modal, mutate, setModal, setFie
             classes={{ modalClass: 'theme-modal view-modal modal-lg', modalHeaderClass: 'p-0' }}
           >
             <div className="right-sidebar-box">
-              <AddAddressForm mutate={mutate} setModal={setModal} type={type} />
+              <AddAddressForm
+                mutate={mutate}
+                setModal={setModal}
+                type={type}
+                storeAddressInLocalStorage={storeAddressInLocalStorage}
+              />
             </div>
           </CustomModal>
         </div>

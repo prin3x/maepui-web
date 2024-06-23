@@ -17,9 +17,24 @@ const ShopCategory = ({ dataAPI }) => {
   const { i18Lang } = useContext(I18NextContext);
   const { t } = useTranslation(i18Lang, 'common');
   const { filterCategory } = useContext(CategoryContext);
+
+  // Ensure that the filterCategory function is called correctly
   const categoryData = useMemo(() => {
     return filterCategory('PRODUCT');
-  }, [filterCategory('product')]);
+  }, [filterCategory]);
+
+  // Log the categoryData to check for duplicates
+  console.log('Category Data:', categoryData);
+
+  // Check if categoryData contains duplicates
+  const uniqueCategoryData = Array.from(new Set(categoryData.map(item => item.id)))
+    .map(id => {
+      return categoryData.find(item => item.id === id);
+    });
+
+  // Log the uniqueCategoryData to check for duplicates
+  console.log('Unique Category Data:', uniqueCategoryData);
+
   return (
     <WrapperComponent classes={{ sectionClass: 'category-section-3' }} noRowCol={true}>
       <CustomHeading title={dataAPI?.title} customClass={'title'} />
@@ -27,7 +42,7 @@ const ShopCategory = ({ dataAPI }) => {
         <Col xs={12}>
           <div className='category-slider-1 arrow-slider'>
             <Slider {...madridCategorySlider}>
-              {categoryData?.map((elem) => (
+              {uniqueCategoryData?.map((elem) => (
                 <div key={elem.id}>
                   <div className='category-box-list'>
                     <Link href={`/${i18Lang}/collections?category=${elem?.id}`} className='category-name'>

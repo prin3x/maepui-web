@@ -4,19 +4,16 @@ import { useQuery } from '@tanstack/react-query';
 import Loader from '@/Layout/Loader';
 import request from '@/Utils/AxiosUtils';
 import MadridHomeBanner from './MadridHomeBanner';
-import { HomePageAPI, SettingAPI } from '@/Utils/AxiosUtils/API';
+import { SettingAPI } from '@/Utils/AxiosUtils/API';
 import HomeBanner from '../ParisTheme/HomeBanner';
 import ShopCategory from './ShopCategory';
 import ProductWrapper from './ProductWrapper';
 import BankOfferBanner from './BankOfferBanner';
-import DealProduct from './DealProducts';
-import GiftBanner from './GiftBanner';
 import OtherSection from './OtherSection';
 import StickyCart from '@/Layout/StickyCart';
 import ThemeOptionContext from '@/Helper/ThemeOptionsContext';
 import ProductIdsContext from '@/Helper/ProductIdsContext';
 import { madridFullSlider } from '../../../Data/SliderSettingsData';
-import Image from 'next/image';
 
 const MadridTheme = () => {
   const { themeOption } = useContext(ThemeOptionContext);
@@ -67,10 +64,6 @@ const MadridTheme = () => {
       {data?.content?.bank_wallet_offers?.offers?.length > 0 && data?.content?.bank_wallet_offers?.status && (
         <BankOfferBanner dataAPI={data?.content?.bank_wallet_offers} />
       )}
-
-      {/* {data?.content?.product_with_deals?.status && <DealProduct dataAPI={data?.content?.product_with_deals} />} */}
-
-      {/* {data?.content?.full_width_banner?.status && <GiftBanner dataAPI={data?.content?.full_width_banner} />} */}
 
       <OtherSection dataAPI={data?.content} />
       {themeOption?.general?.sticky_cart_enable && themeOption?.general?.cart_style !== 'cart_sidebar' && (

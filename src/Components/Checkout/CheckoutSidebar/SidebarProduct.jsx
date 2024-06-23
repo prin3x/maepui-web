@@ -34,13 +34,13 @@ const SidebarProduct = ({ values }) => {
                   <h4>{item?.variation ? item?.variation?.name : item?.product?.name}</h4>
                   <h5 className="text-theme">
                     {item?.variation
-                      ? convertCurrency(item?.variation.sale_price)
-                      : convertCurrency(item?.product?.sale_price)}{' '}
+                      ? convertCurrency(item?.variation.price)
+                      : convertCurrency(item?.product?.price)}{' '}
                     x {item.quantity}
                   </h5>
                   <h5 className="price">
                     {convertCurrency(
-                      (item?.variation ? item?.variation.sale_price : item?.product?.sale_price) * item.quantity,
+                      (item?.variation ? item?.variation.price : item?.product?.price) * item.quantity,
                     )}
                   </h5>
                 </div>

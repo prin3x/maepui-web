@@ -7,8 +7,18 @@ import { AddressAPI } from '@/Utils/AxiosUtils/API';
 import { YupObject, nameSchema, phoneSchema } from '@/Utils/Validation/ValidationSchemas';
 import { useTranslation } from '@/app/i18n/client';
 import SelectForm from './SelectForm';
+import AccountContext from '@/Helper/AccountContext';
 
-const AddAddressForm = ({ mutate, type, editAddress, setEditAddress, modal, setModal }) => {
+const AddAddressForm = ({
+  mutate,
+  type,
+  editAddress,
+  setEditAddress,
+  modal,
+  setModal,
+  storeAddressInLocalStorage,
+}) => {
+  const { accountData } = useContext(AccountContext);
   useEffect(() => {
     modal !== 'edit' && setEditAddress && setEditAddress({});
   }, [modal]);
@@ -34,18 +44,18 @@ const AddAddressForm = ({ mutate, type, editAddress, setEditAddress, modal, setM
           values['_method'] = 'POST';
         }
         values['pincode'] = values['pincode'].toString();
-        mutate.mutate(values);
+        if (accountData) {
+          mutate.mutate(values);
+        } else {
+          storeAddressInLocalStorage(values);
+        }
       }}
     >
       {({ values, setFieldValue, handleChange }) => {
         return (
-        <SelectForm
-          values={values}
-          setFieldValue={setFieldValue}
-          setModal={setModal}
-          handleChange={handleChange}
-        />
-      )}}
+          <SelectForm values={values} setFieldValue={setFieldValue} setModal={setModal} handleChange={handleChange} />
+        );
+      }}
     </Formik>
   );
 };
