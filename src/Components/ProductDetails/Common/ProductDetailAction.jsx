@@ -8,17 +8,27 @@ import { useRouter } from 'next/navigation';
 import AddToWishlist from '@/Components/Common/ProductBox/AddToWishlist';
 import AddToCompare from '@/Components/Common/ProductBox/AddToCompare';
 import AddToCartButton from './AddToCartButton';
+import Cookies from 'js-cookie';
 
 const ProductDetailAction = ({ productState, setProductState, extraOption }) => {
+  const isAuth = Cookies.get('authToken');
   const { i18Lang } = useContext(I18NextContext);
   const { handleIncDec } = useContext(CartContext);
   const router = useRouter();
   const addToCart = () => {
-    handleIncDec(productState?.productQty, productState?.product, false, false, false, productState);
+    if (isAuth) {
+      handleIncDec(productState?.productQty, productState?.product, false, false, false, productState);
+    } else {
+      router.push(`/${i18Lang}/auth/login`);
+    }
   };
   const buyNow = () => {
-    handleIncDec(productState?.productQty, productState?.product, false, false, false, productState);
-    router.push(`/${i18Lang}/checkout`);
+    if (isAuth) {
+      handleIncDec(productState?.productQty, productState?.product, false, false, false, productState);
+      router.push(`/${i18Lang}/checkout`);
+    } else {
+      router.push(`/${i18Lang}/auth/login`);
+    }
   };
   const updateQty = (qty) => {
     if (1 > productState?.productQty + qty) return;

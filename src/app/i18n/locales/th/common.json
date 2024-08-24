@@ -469,5 +469,6 @@
   "EarningPoints": "การได้คะแนน",
   "Hi": "สวัสดี",
   "AskForRefund": "ขอคืนเงิน",
-  "EnterReason": "ป้อนเหตุผล"
+  "EnterReason": "ป้อนเหตุผล",
+  "ConfirmPayment": "ยืนยันการชำระเงิน"
 }

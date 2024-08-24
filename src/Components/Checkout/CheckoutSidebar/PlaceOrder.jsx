@@ -14,11 +14,12 @@ const PlaceOrder = ({ values, createOrderParams }) => {
 
   const placeOrder = async (orderData) => {
     const response = await request({ url: `${OrderAPI}/myorders`, method: 'POST', data: createOrderParams() });
+
     if (response.status === 201) {
       toast.success(`สั่งซื้อสำเร็จแล้ว`);
-      router.push(`/${i18Lang}/account/order`);
+      router.push(`/${i18Lang}/confirm-payment/${response.data.id}`);
     } else {
-      toast.error(`สั่งซื้อไม่สำเร็จ`);
+      toast.error(`ขออภัย สั่งซื้อไม่สำเร็จ กรุณาลองใหม่อีกครั้ง`);
     }
   };
 

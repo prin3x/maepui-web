@@ -9,11 +9,6 @@ import { RiMenuLine } from 'react-icons/ri';
 import { usePathname } from 'next/navigation';
 import I18NextContext from '@/Helper/I18NextContext';
 import { useTranslation } from '@/app/i18n/client';
-import ParisLogo from '../../../../public/assets/images/logo/1.png';
-import TokyoLogo from '../../../../public/assets/images/logo/2.png';
-import RomeLogo from '../../../../public/assets/images/logo/3.png';
-import MadridLogo from '../../../../public/assets/images/logo/4.png';
-import OtherLogo from '../../../../public/assets/images/logo/6.png';
 
 const HeaderLogo = () => {
   const [logo, setLogo] = useState('');
@@ -22,20 +17,8 @@ const HeaderLogo = () => {
   const { t } = useTranslation(i18Lang, 'common');
   const pathName = usePathname();
   useEffect(() => {
+    // Logo here
     let logo = themeOption?.logo?.header_logo;
-    if (pathName == `/${i18Lang}/theme/osaka`) {
-      logo = { original_url: ParisLogo };
-    } else if (pathName == `/${i18Lang}/theme/tokyo`) {
-      logo = { original_url: TokyoLogo };
-    } else if (pathName == `/${i18Lang}/theme/rome`) {
-      logo = { original_url: RomeLogo };
-    } else if (pathName == `/${i18Lang}/theme/madrid`) {
-      logo = { original_url: MadridLogo };
-    } else if (pathName == `/${i18Lang}/theme/berlin` || pathName == `/${i18Lang}/theme/denver`) {
-      logo = { original_url: OtherLogo };
-    } else {
-      logo = themeOption?.logo?.header_logo;
-    }
     setLogo(logo);
   }, [pathName, i18Lang, themeOption?.logo?.header_logo]);
   return (
@@ -46,7 +29,7 @@ const HeaderLogo = () => {
         </span>
       </Btn>
       <Link href='/' className='web-logo nav-logo'>
-        <Avatar data={logo} placeHolder={logoImage} name={'Header'} customImageClass={'img-fluid'} height={28} width={162} />
+        {/* <Avatar data={logo} placeHolder={logoImage} name={'Header'} customImageClass={'img-fluid'} height={28} width={162} /> */}
       </Link>
     </>
   );

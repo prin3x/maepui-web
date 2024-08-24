@@ -74,6 +74,9 @@ export const OrderAPI = '/orders';
 // Verify Payment API
 export const VerifyPayment = '/verifyPayment';
 
+// Confirm Payment API
+export const ConfirmPaymentAPI = '/payments/confirm-payment'
+
 // Update Profile API
 export const UpdateProfileAPI = '/user/updateProfile'
 
