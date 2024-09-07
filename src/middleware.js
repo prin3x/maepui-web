@@ -40,14 +40,6 @@ export async function middleware(request) {
     return NextResponse.next();
   }
 
-  // Redirect if lng in path is not supported
-  if (
-    !languages.some((loc) => request.nextUrl.pathname.startsWith(`/${loc}`)) &&
-    !request.nextUrl.pathname.startsWith('/_next')
-  ) {
-    const newPathname = `/${lng}${path}`;
-    return NextResponse.redirect(new URL(newPathname, request.url));
-  }
   if (request.headers.has('referer')) {
     const refererUrl = new URL(request.headers.get('referer'));
     const lngInReferer = languages.find((l) => refererUrl.pathname.startsWith(`/${l}`));
