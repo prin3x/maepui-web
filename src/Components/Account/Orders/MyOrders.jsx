@@ -20,20 +20,25 @@ const MyOrders = () => {
   const { i18Lang } = useContext(I18NextContext);
   const { t } = useTranslation(i18Lang, 'common');
   const { convertCurrency } = useContext(SettingContext);
-  const { data, isLoading, refetch } = useQuery([page], () => request({ url: `${OrderAPI}/myorders`, params: { page: page, paginate: 10 } }), {
-    enabled: true,
-    refetchOnWindowFocus: false,
-    refetchOnMount: false,
-    select: (res) => res?.data,
-  });
+  const { data, isLoading, refetch } = useQuery(
+    [page],
+    () => request({ url: `${OrderAPI}/myorders`, params: { page: page, paginate: 10 } }),
+    {
+      enabled: true,
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+      select: (res) => res?.data,
+    },
+  );
+
   if (isLoading) return <Loader />;
   return (
     <>
       <AccountHeading title="MyOrders" />
       {data?.length > 0 ? (
         <>
-          <div className='total-box mt-0'>
-            <div className='wallet-table mt-0'>
+          <div className="total-box mt-0">
+            <div className="wallet-table mt-0">
               <Table>
                 <tbody>
                   <tr>
@@ -41,26 +46,32 @@ const MyOrders = () => {
                     <th>{t('OrderNumber')}</th>
                     <th>{t('Date')}</th>
                     <th>{t('Amount')}</th>
+                    <th>{t('OrderStatus')}</th>
                     <th>{t('PaymentStatus')}</th>
-                    <th>{t('PaymentMethod')}</th>
+                    {/* <th>{t('PaymentMethod')}</th> */}
                     <th>{t('Option')}</th>
                   </tr>
                   {data?.map((order, i) => (
                     <tr key={i}>
                       <td>{i + 1}</td>
                       <td>
-                        <span className='fw-bolder'>#{order.order_number}</span>
+                        <span className="fw-bolder">#{order.id}</span>
                       </td>
                       <td>{dateFormate(order?.created_at)}</td>
                       <td>{convertCurrency(order?.total_amount)} </td>
                       <td>
-                        <div className={`status-${order.payment_status.toLowerCase()}`}>
-                          <span>{order.payment_status}</span>
+                        <div className={`status-${order?.status?.toLowerCase()}`}>
+                          <span>{t(`status.${order?.status?.toUpperCase()}`)}</span>
                         </div>
                       </td>
-                      <td>{order.payment_method.toUpperCase()}</td>
                       <td>
-                        <Link href={`/${i18Lang}/account/order/details/${order.order_number}`}>
+                        <div className={`status-${order?.payment_status?.toLowerCase()}`}>
+                          <span>{t(`status.${order?.payment_status?.toUpperCase()}`)}</span>
+                        </div>
+                      </td>
+                      {/* <td>{order.payment_method.toUpperCase()}</td> */}
+                      <td>
+                        <Link href={`/${i18Lang}/account/order/details/${order.id}`}>
                           <RiEyeLine />
                         </Link>
                       </td>
@@ -70,8 +81,13 @@ const MyOrders = () => {
               </Table>
             </div>
           </div>
-          <nav className='custome-pagination'>
-            <Pagination current_page={data?.current_page} total={data?.total} per_page={data?.per_page} setPage={setPage} />
+          <nav className="custome-pagination">
+            <Pagination
+              current_page={data?.current_page}
+              total={data?.total}
+              per_page={data?.per_page}
+              setPage={setPage}
+            />
           </nav>
         </>
       ) : (

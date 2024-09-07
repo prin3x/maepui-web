@@ -164,17 +164,16 @@ export const categorySliderOption = {
 };
 
 export const featureBlogSliderOption = {
-  arrows: true,
   infinite: true,
-  slidesToShow: 3,
+  arrows: true,
+  slidesToShow: 2,
   slidesToScroll: 1,
-  autoplay: false,
-  autoplaySpeed: 2500,
+  pauseOnHover: true,
   responsive: [
     {
       breakpoint: 1550,
       settings: {
-        slidesToShow: 2,
+        slidesToShow: 4,
       },
     },
     {

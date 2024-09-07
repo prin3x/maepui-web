@@ -19,18 +19,18 @@ const EmailPassword = () => {
               <td>{t('Email')} :</td>
               <td>
                 {accountData?.email}
-                <span className='custom-anchor ms-2' onClick={() => setModal('email')}>
+                {/* <span className='custom-anchor ms-2' onClick={() => setModal('email')}>
                   {t('Edit')}
-                </span>
+                </span> */}
               </td>
             </tr>
             <tr>
               <td>{t('Password')} :</td>
               <td>
                 ●●●●●●
-                <span className='custom-anchor ms-2' onClick={() => setModal('password')}>
+                {/* <span className='custom-anchor ms-2' onClick={() => setModal('password')}>
                   {t('Edit')}
-                </span>
+                </span> */}
               </td>
             </tr>
           </tbody>

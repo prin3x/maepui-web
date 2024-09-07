@@ -106,7 +106,7 @@ export const CouponAPI = "/coupon"
 export const FeedBackAPI = '/question-and-answer/feedback'
 
 // Review API
-export const ReviewAPI = '/review'
+export const ReviewAPI = '/reviews'
 
 // Order Status API
 export const OrderStatusAPI = '/orderStatus'

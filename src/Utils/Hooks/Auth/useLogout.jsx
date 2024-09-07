@@ -4,14 +4,6 @@ import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 import { useContext } from 'react';
 
-const LogoutHandle = (router, refetch, compareRefetch) => {
-  Cookies.remove('authToken', { path: '/' });
-  Cookies.remove('account');
-  refetch();
-  compareRefetch();
-  router.push('/');
-};
-
 const useHandleLogout = () => {
   const { refetch } = useContext(AccountContext);
   const router = useRouter();

@@ -5,7 +5,7 @@ import { PageAPI } from '@/Utils/AxiosUtils/API';
 import { useQuery } from '@tanstack/react-query';
 
 const PageCard = ({ params }) => {
-  const { data: Page, isLoading, refetch } = useQuery([params], () => request({ url: `${PageAPI}/slug/${params}` }), { enabled: false, refetchOnWindowFocus: false, select: (res) => res?.data });
+  const { data: Page, isLoading, refetch } = useQuery([params], () => request({ url: `${PageAPI}/${params}` }), { enabled: false, refetchOnWindowFocus: false, select: (res) => res?.data });
   useEffect(() => {
     params && refetch();
   }, [params]);

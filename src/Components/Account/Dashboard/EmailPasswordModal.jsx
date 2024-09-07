@@ -14,18 +14,26 @@ const EmailPasswordModal = ({ modal, setModal }) => {
   const { accountData, setAccountData } = useContext(AccountContext);
 
   const { mutate: updateProfile } = useMutation({
-    mutationFn: (values) => request({ url: `${UpdateProfileAPI}`, method: 'PATCH', data: values }),
-    onSuccess: () => {
-      toast.success('Profile updated successfully');
-      setModal('');
+    mutationFn: (values) => {
+      request({ url: `${UpdateProfileAPI}`, method: 'PATCH', data: values })
+        .then((response) => {
+          toast.success('อัปเดตข้อมูลสำเร็จ');
+        })
+        .catch((error) => {
+          toast.error('อัปเดตข้อมูลไม่สำเร็จ');
+        });
     },
   });
 
   const { mutate: updatePassword } = useMutation({
-    mutationFn: (values) => request({ url: `${UpdatePasswordAPI}`, method: 'PATCH', data: values }),
-    onSuccess: () => {
-      toast.success('Password updated successfully');
-      setModal('');
+    mutationFn: (values) => {
+      request({ url: `${UpdatePasswordAPI}`, method: 'PATCH', data: values })
+        .then((response) => {
+          toast.success('อัปเดตรหัสผ่านสำเร็จ');
+        })
+        .catch((error) => {
+          toast.error('อัปเดตรหัสผ่านไม่สำเร็จ');
+        });
     },
   });
   return (

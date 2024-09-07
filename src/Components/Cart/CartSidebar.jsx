@@ -12,7 +12,7 @@ const CartSidebar = () => {
   const { cartProducts, getTotal } = useContext(CartContext);
   const { i18Lang } = useContext(I18NextContext);
   const { t } = useTranslation(i18Lang, 'common');
-  const isAuth = Cookies.get('authToken');
+  const { accountData } = useContext(AuthContext);
   return (
     <Col xxl={3} xl={4}>
       <div className='summery-box p-sticky'>
@@ -49,7 +49,7 @@ const CartSidebar = () => {
         <div className='button-group cart-button'>
           <ul>
             <li>
-              <Link href={isAuth ? `/${i18Lang}/checkout` : `/${i18Lang}/auth/login`} className='btn btn-animation proceed-btn fw-bold'>
+              <Link href={accountData ? `/${i18Lang}/checkout` : `/${i18Lang}/auth/login`} className='btn btn-animation proceed-btn fw-bold'>
                 {t('ProcessToCheckout')}
               </Link>
             </li>

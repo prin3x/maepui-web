@@ -22,7 +22,7 @@ const AddressHeader = () => {
   const queryClient = useQueryClient();
 
   useEffect(() => {
-    accountData?.addresses.length > 0 && setAddressState((prev) => [...accountData?.addresses]);
+    accountData?.addresses?.length > 0 && setAddressState((prev) => [...accountData?.addresses]);
   }, [accountData]);
 
   const createMutate = useMutation({
@@ -43,7 +43,7 @@ const AddressHeader = () => {
   };
 
   const editMutate = useMutation({
-    mutationFn: (values) => request({ url: `${AddressAPI}/address/${editAddress.id}`, method: 'PUT', data: values }),
+    mutationFn: (values) => request({ url: `${AddressAPI}/${editAddress.id}`, method: 'PATCH', data: values }),
     onSuccess: () => {
       toast.success('Edit address success');
       setModal(false);

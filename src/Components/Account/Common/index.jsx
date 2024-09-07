@@ -16,9 +16,9 @@ const SidebarProfile = () => {
         <div className='profile-contain'>
           <div className='profile-image'>
             <div className='position-relative'>
-              <div className='user-round'>
+              {/* <div className='user-round'>
                 <Avatar name={accountData?.name} customImageClass={'update_img'} alt='profile-image' height={108} width={108} />
-              </div>
+              </div> */}
             </div>
           </div>
 

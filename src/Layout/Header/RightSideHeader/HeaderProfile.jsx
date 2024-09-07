@@ -11,7 +11,7 @@ import AccountContext from '@/Helper/AccountContext';
 
 const HeaderProfile = () => {
   const { i18Lang } = useContext(I18NextContext);
-  const { accountData, handleLogout } = useContext(AccountContext);
+  const { accountData, handleLogout, refetch } = useContext(AccountContext);
   const router = useRouter();
   const [modal, setModal] = useState(false);
   const { t } = useTranslation(i18Lang, 'common');
@@ -19,6 +19,12 @@ const HeaderProfile = () => {
     router.push(`/${i18Lang}/auth/login`);
     setModal(false);
   });
+
+  const onLogout = () => {
+    handleLogout(mutate);
+    refetch()
+    setModal(false);
+  }
 
   // if no accountData then return link to login page
   if (!accountData) {
@@ -36,11 +42,8 @@ const HeaderProfile = () => {
     <li className="right-side onhover-dropdown">
       <div className="delivery-login-box">
         <div className="delivery-icon">
-          <h3>{accountData?.name?.charAt(0)?.toString()?.toUpperCase()}</h3>
+          <h3>{accountData?.email?.charAt(0)?.toString()?.toUpperCase()}</h3>
         </div>
-        {/* <div className="delivery-detail">
-          <h5>{t('MyAccount')}</h5>
-        </div> */}
       </div>
 
       <div className="onhover-div onhover-div-login">
@@ -58,7 +61,7 @@ const HeaderProfile = () => {
           <ConfirmationModal
             modal={modal}
             setModal={setModal}
-            confirmFunction={() => handleLogout(router, mutate)}
+            confirmFunction={() => onLogout(router, mutate)}
             isLoading={isLoading}
           />
         </ul>

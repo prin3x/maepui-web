@@ -17,7 +17,7 @@ const SupportBox = () => {
         </div>
         <div className='support-number'>
           <h2>{themeOption?.header?.support_number}</h2>
-          <h4>{t('24/7SupportCenter')}</h4>
+          {/* <h4>{t('24/7SupportCenter')}</h4> */}
         </div>
       </div>
     </div>

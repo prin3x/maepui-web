@@ -1,79 +1,134 @@
-import { useContext, useState } from 'react';
-import { Col, Progress, Row } from 'reactstrap';
-import Cookies from 'js-cookie';
-import { RiStarFill } from 'react-icons/ri';
-import { useQuery } from '@tanstack/react-query';
+import NoDataFound from '@/Components/Common/NoDataFound';
 import Btn from '@/Elements/Buttons/Btn';
+import I18NextContext from '@/Helper/I18NextContext';
 import request from '@/Utils/AxiosUtils';
 import { ReviewAPI } from '@/Utils/AxiosUtils/API';
-import CustomerQA from './CustomerQ&A';
-import ReviewModal from './AllModal/ReviewModal';
-import I18NextContext from '@/Helper/I18NextContext';
 import { useTranslation } from '@/app/i18n/client';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import Cookies from 'js-cookie';
+import { useContext, useState } from 'react';
+import { RiStarFill } from 'react-icons/ri';
+import { toast } from 'react-toastify';
+import { Col, Progress, Row } from 'reactstrap';
+import ReviewModal from './AllModal/ReviewModal';
 
 const CustomerReview = ({ productState }) => {
   const { i18Lang } = useContext(I18NextContext);
   const { t } = useTranslation(i18Lang, 'common');
   const [modal, setModal] = useState('');
   const isLogin = Cookies.get('authToken');
-  const { data, isLoading, refetch } = useQuery([ReviewAPI], () => request({ url: ReviewAPI, params: { product_id: productState?.product?.id } }), {
-    enabled: isLogin ? (productState?.product?.id ? true : false) : false,
-    refetchOnWindowFocus: false,
-    select: (res) => res?.data?.data,
+  const { data, isLoading, refetch } = useQuery(
+    [ReviewAPI],
+    () => request({ url: `${ReviewAPI}/product/${productState?.product?.id}` }),
+    {
+      enabled: isLogin ? (productState?.product?.id ? true : false) : false,
+      refetchOnWindowFocus: false,
+      select: (res) => res?.data,
+    },
+  );
+  const { mutate: mutateReview } = useMutation({
+    mutationFn: (values) =>
+      request({ url: `${ReviewAPI}/product/${productState?.product?.id}`, method: 'POST', data: values }),
+    onSuccess: () => {
+      toast.success('รีวิวสำเร็จ');
+      setModal(false);
+      refetch();
+    },
   });
+
+  const calculateRating = (ratings) => {
+    const totalRating = ratings?.reduce((acc, curr) => acc + curr?.rating, 0);
+    const averageRating = totalRating / ratings?.length;
+    return averageRating.toFixed(2);
+  };
+
   return (
     <>
       <Col xl={5}>
-        <div className='product-rating-box'>
+        <div className="product-rating-box">
           <Row>
-            {productState?.product?.reviews_count ? (
+            {data?.length ? (
               <Col xl={12}>
-                <div className='product-main-rating'>
+                <div className="product-main-rating">
                   <h2>
-                    {productState?.product?.rating_count.toFixed(2)}
+                    {calculateRating(data) || 0}
                     <RiStarFill />
                   </h2>
                   <h5>
-                    {productState?.product?.reviews_count} {t('Ratings')}
+                    {calculateRating(data) || 0} {t('Ratings')}
                   </h5>
                 </div>
               </Col>
-            ) : null}
+            ) : (
+              <NoDataFound
+                data={{
+                  customClass: 'no-data-added',
+                  title: 'NoReviewYet',
+                  description: 'NoReviewYetDescription',
+                }}
+              />
+            )}
             <Col xl={12}>
-              {productState?.product?.reviews_count ? (
-                <ul className='product-rating-list'>
-                  {productState?.product?.review_ratings
-                    ?.slice()
-                    ?.reverse()
-                    .map((rate, i) => (
+              {data?.length ? (
+                <ul className="product-rating-list">
+                  {[...new Set(data.map((rate) => rate.rating))]
+                    .sort((a, b) => b - a)
+                    .map((rating, i) => (
                       <li key={i}>
-                        <div className='rating-product'>
+                        <div className="rating-product">
                           <h5>
-                            {productState?.product?.review_ratings?.length - 1 - i + 1}
+                            {rating}
                             <RiStarFill />
                           </h5>
                           <Progress multi>
-                            <Progress value={((rate / productState?.product?.reviews_count) * 100).toFixed(0)} />
+                            <Progress
+                              value={((data.filter((r) => r.rating === rating).length / data.length) * 100).toFixed(0)}
+                            />
                           </Progress>
-                          <h5 className='total'>{rate}</h5>
+                          <h5 className="total">{data.filter((r) => r.rating === rating).length}</h5>
                         </div>
                       </li>
                     ))}
                 </ul>
               ) : null}
-              {productState?.product?.can_review ? (
-                <div className='review-title-2'>
-                  <h4 className='fw-bold'>{t('Reviewthisproduct')}</h4>
-                  <p>{t('Letothercustomersknowwhatyouthink')}.</p>
-                  <Btn className='btn' onClick={() => setModal(productState?.product?.id)} title={productState?.product?.user_review ? t('EditReview') : t('Writeareview')} />
-                </div>
-              ) : null}
+              <div className="review-title-2">
+                <h4 className="fw-bold">{t('Reviewthisproduct')}</h4>
+                <p>{t('Letothercustomersknowwhatyouthink')}.</p>
+                <Btn
+                  className="btn"
+                  onClick={() => setModal(productState?.product?.id)}
+                  title={productState?.product?.user_review ? t('EditReview') : t('Writeareview')}
+                />
+              </div>
+              {data?.length
+                ? data?.map((review, i) => (
+                    <div className="review-title-2" key={i}>
+                      <h4 className="fw-bold">{review?.description}</h4>
+                      <ul className={`rating`}>
+                        {review?.rating &&
+                          Array(review?.rating)
+                            .fill()
+                            .map((elem) => (
+                              <li key={elem}>
+                                <RiStarFill />
+                              </li>
+                            ))}
+                      </ul>
+                    </div>
+                  ))
+                : null}
             </Col>
           </Row>
         </div>
       </Col>
-      <ReviewModal modal={modal} setModal={setModal} productState={productState} refetch={refetch} />
-      {(productState?.product?.can_review || productState?.product?.reviews_count) && <CustomerQA data={data} />}
+      <ReviewModal
+        mutateReview={mutateReview}
+        modal={modal}
+        setModal={setModal}
+        productState={productState}
+        refetch={refetch}
+      />
+      {/* {(productState?.product?.can_review || productState?.product?.reviews_count) && <CustomerQA data={data} />} */}
     </>
   );
 };

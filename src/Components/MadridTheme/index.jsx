@@ -61,6 +61,16 @@ const MadridTheme = () => {
         />
       )}
 
+      {data?.content?.products_list_2?.status && data?.content?.products_list_2?.product_ids.length > 0 && (
+        <ProductWrapper
+          dataAPI={data?.content?.products_list_2}
+          noCustomClass={false}
+          titleClass="title"
+          customSliderOption={madridFullSlider}
+          classObj={{ productStyle: 'product-standard theme-plus', productBoxClass: 'product-box-bg' }}
+        />
+      )}
+
       {data?.content?.bank_wallet_offers?.offers?.length > 0 && data?.content?.bank_wallet_offers?.status && (
         <BankOfferBanner dataAPI={data?.content?.bank_wallet_offers} />
       )}

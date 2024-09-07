@@ -23,26 +23,33 @@ const ProductSlider = ({ productState, setProductState }) => {
       <TopSlider productState={productState} />
       <WrapperComponent classes={{ sectionClass: 'product-section section-b-space' }} customCol={true}>
         <Col xxl={9} xl={8} lg={7}>
-          <Row className='g-4'>
+          <Row className="g-4">
             <Col xs={12}>
-              <div className='right-box-contain full-width-right-box'>
+              <div className="right-box-contain full-width-right-box">
                 <ProductDetails productState={productState} />
-                {productState?.product?.type == 'classified' && <ProductAttribute productState={productState} setProductState={setProductState} />}
-                {productState?.product?.sale_starts_at && productState?.product?.sale_expired_at && <OfferTimer productState={productState} />}
+                {productState?.product?.type == 'classified' && (
+                  <ProductAttribute productState={productState} setProductState={setProductState} />
+                )}
+                {productState?.product?.sale_starts_at && productState?.product?.sale_expired_at && (
+                  <OfferTimer productState={productState} />
+                )}
 
                 <ProductDetailAction productState={productState} setProductState={setProductState} />
                 <AddProductDetail productState={productState} />
                 <ProductInformation productState={productState} />
-                {productState?.product?.estimated_delivery_text || (productState?.product?.return_policy_text && productState?.product?.is_return) ? (
+                {productState?.product?.estimated_delivery_text ||
+                (productState?.product?.return_policy_text && productState?.product?.is_return) ? (
                   <ProductDeliveryInformation productState={productState} />
                 ) : null}
                 <PaymentOtions productState={productState} />
 
-                {themeOption?.product?.social_share && productState?.product?.social_share ? <ProductSocial productState={productState} /> : null}
+                {themeOption?.product?.social_share && productState?.product?.social_share ? (
+                  <ProductSocial productState={productState} />
+                ) : null}
               </div>
             </Col>
             {productState?.product?.cross_sell_products?.length > 0 ? (
-              <Col xs={12} className='related-product-2'>
+              <Col xs={12} className="related-product-2">
                 <ProductBundle productState={productState} />
               </Col>
             ) : null}

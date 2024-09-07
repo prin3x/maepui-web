@@ -26,7 +26,7 @@ const RegisterContent = () => {
 
         <Col xxl={4} xl={5} lg={6} sm={8} className='mx-auto'>
           <div className='log-in-box'>
-            <AuthHeadings heading1={'WelcomeToFastkart'} heading2={'CreateNewAccount'} />
+            <AuthHeadings heading1={'WelcomeToMaepui'} heading2={'CreateNewAccount'} />
 
             <div className='input-box'>
               <RegisterForm />

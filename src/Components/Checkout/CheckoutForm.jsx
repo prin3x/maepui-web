@@ -19,11 +19,16 @@ const CheckoutForm = () => {
   const queryClient = useQueryClient();
 
   const mutateAddress = useMutation({
-    mutationFn: (values) => request({ url: `${AddressAPI}/`, method: 'POST', data: values }),
-    onSuccess: () => {
-      toast.success('Create address success');
-      setModal('');
-      queryClient.invalidateQueries([SelfAPI]);
+    mutationFn: (values) => {
+      request({ url: `${AddressAPI}/`, method: 'POST', data: values })
+        .then((response) => {
+          toast.success('สร้างที่อยู่สำเร็จ');
+          setModal('');
+          queryClient.invalidateQueries([SelfAPI]);
+        })
+        .catch((error) => {
+          toast.error('สร้างที่อยู่ไม่สำเร็จ');
+        });
     },
   });
 

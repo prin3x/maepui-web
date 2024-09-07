@@ -12,7 +12,7 @@ import { ModifyString } from '@/Utils/CustomFunctions/ModifyString';
 import Loader from '@/Layout/Loader';
 
 const SingleStoreDetail = ({ params }) => {
-  const { data: StoreData, isLoading, refetch } = useQuery([params], () => request({ url: `${StoreAPI}/slug/${params}` }), { enabled: false, refetchOnWindowFocus: false, select: (res) => res?.data });
+  const { data: StoreData, isLoading, refetch } = useQuery([params], () => request({ url: `${StoreAPI}/${params}` }), { enabled: false, refetchOnWindowFocus: false, select: (res) => res?.data });
   useEffect(() => {
     params && refetch();
   }, [params]);

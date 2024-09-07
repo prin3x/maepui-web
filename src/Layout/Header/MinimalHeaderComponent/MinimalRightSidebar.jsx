@@ -27,23 +27,25 @@ const MinimalRightSidebar = () => {
             {accountData && (
               <li
                 className="onhover-dropdown"
-              onClick={() => elem?.isBadge && cartStyle == 'cart_sidebar' && !cartCanvas && setCartCanvas(!cartCanvas)}
-            >
-              {elem?.path ? (
-                <Link
-                  href={`/${i18Lang}${elem?.path}`}
-                  className={`header-icon ${elem?.customClass ? elem?.customClass : ''}`}
-                >
-                  {elem.icon}
-                </Link>
-              ) : (
-                <a className={`header-icon ${elem?.customClass ? elem?.customClass : ''}`}>
-                  {elem?.isBadge && cartProducts?.length > 0 && (
-                    <small className="badge-number badge-light">{cartProducts?.length}</small>
-                  )}
-                  {elem.icon}
-                </a>
-              )}
+                onClick={() =>
+                  elem?.isBadge && cartStyle == 'cart_sidebar' && !cartCanvas && setCartCanvas(!cartCanvas)
+                }
+              >
+                {elem?.path ? (
+                  <Link
+                    href={`/${i18Lang}${elem?.path}`}
+                    className={`header-icon ${elem?.customClass ? elem?.customClass : ''}`}
+                  >
+                    {elem.icon}
+                  </Link>
+                ) : (
+                  <a className={`header-icon ${elem?.customClass ? elem?.customClass : ''}`}>
+                    {elem?.isBadge && cartProducts?.length > 0 && (
+                      <small className="badge-number badge-light">{cartProducts?.length}</small>
+                    )}
+                    {elem.icon}
+                  </a>
+                )}
                 {elem.isBadge && <HeaderCartData cartStyle={'cart_sidebar'} />}
               </li>
             )}
@@ -52,9 +54,7 @@ const MinimalRightSidebar = () => {
       </ul>
 
       <div className="user-box">
-        <span className=''>
-          <HeaderProfile />
-        </span>
+        <HeaderProfile />
       </div>
     </div>
   );

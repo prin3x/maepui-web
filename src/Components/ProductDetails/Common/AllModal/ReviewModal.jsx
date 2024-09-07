@@ -11,53 +11,91 @@ import { placeHolderImage } from '../../../../../Data/CommonPath';
 import ProductBox1Rating from '@/Components/Common/ProductBox/ProductBox1/ProductBox1Rating';
 import { ModalFooter } from 'reactstrap';
 
-const ReviewModal = ({ modal, setModal, productState }) => {
+const ReviewModal = ({ modal, setModal, productState, mutateReview }) => {
   const { i18Lang } = useContext(I18NextContext);
   const { t } = useTranslation(i18Lang, 'common');
 
   return (
-    <CustomModal modal={modal ? true : false} setModal={setModal} classes={{ modalClass: 'theme-modal', title: productState?.product?.user_review ? 'EditReview' : 'Writeareview' }}>
+    <CustomModal
+      modal={modal ? true : false}
+      setModal={setModal}
+      classes={{ modalClass: 'theme-modal', title: productState?.product?.user_review ? 'EditReview' : 'Writeareview' }}
+    >
       <Formik
-        initialValues={{ rating: productState?.product?.user_review?.rating, description: productState?.product?.user_review?.description, product_id: productState?.product?.id, review_image_id: '' }}
+        initialValues={{
+          rating: productState?.product?.user_review?.rating,
+          description: productState?.product?.user_review?.description,
+          product_id: productState?.product?.id,
+          review_image_id: '',
+        }}
         validationSchema={YupObject({
           rating: nameSchema,
         })}
         onSubmit={(values) => {
           // Add your logic here
-          setModal(false)
-        }}>
+          mutateReview(values);
+        }}
+      >
         {({ values, setFieldValue, errors }) => (
-          <Form className='product-review-form'>
-            <div className='product-wrapper'>
-              <div className='product-image'>
-                <Avatar data={productState?.product?.product_thumbnail ? productState?.product?.product_thumbnail : placeHolderImage} customImageClass='img-fluid' name={productState?.product?.name} />
+          <Form className="product-review-form">
+            <div className="product-wrapper">
+              <div className="product-image">
+                <Avatar
+                  data={
+                    productState?.product?.product_thumbnail
+                      ? productState?.product?.product_thumbnail
+                      : placeHolderImage
+                  }
+                  customImageClass="img-fluid"
+                  name={productState?.product?.name}
+                />
               </div>
-              <div className='product-content'>
-                <h5 className='name'>{productState?.product?.name}</h5>
-                <div className='product-review-rating'>
+              <div className="product-content">
+                <h5 className="name">{productState?.product?.name}</h5>
+                <div className="product-review-rating">
                   <label>{t('Rating')}</label>
-                  <div className='product-rating'>
+                  <div className="product-rating">
                     <ProductBox1Rating totalRating={productState?.product?.rating_count} />
-                    <h6 className='rating-number'>{productState?.product?.rating_count?.toFixed(2) || 0}</h6>
+                    <h6 className="rating-number">{productState?.product?.rating_count?.toFixed(2) || 0}</h6>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className='review-box'>
-              <div className='product-review-rating'>
+            <div className="review-box">
+              <div className="product-review-rating">
                 <label>{t('Rating')}</label>
-                <div className='product-rating'>
-                  <ProductBox1Rating totalRating={productState?.product?.user_review?.rating} clickAble={true} setFieldValue={setFieldValue} name={'rating'} />
+                <div className="product-rating">
+                  <ProductBox1Rating
+                    totalRating={productState?.product?.user_review?.rating}
+                    clickAble={true}
+                    setFieldValue={setFieldValue}
+                    name={'rating'}
+                  />
                 </div>
               </div>
             </div>
-            <div className='review-box'>
-              <SimpleInputField nameList={[{ name: 'description', placeholder: t('EnterDescription'), type: 'textarea', toplabel: 'ReviewContent', rows: 3 }]} />
+            <div className="review-box">
+              <SimpleInputField
+                nameList={[
+                  {
+                    name: 'description',
+                    placeholder: t('EnterDescription'),
+                    type: 'textarea',
+                    toplabel: 'ReviewContent',
+                    rows: 3,
+                  },
+                ]}
+              />
             </div>
-            <ModalFooter className='pt-0'>
-              <Btn className='btn-md btn-theme-outline fw-bold' title='Cancel' type='button' onClick={() => setModal('')} />
-              <Btn className='btn-md fw-bold text-light theme-bg-color' title='Submit' type='submit' />
+            <ModalFooter className="pt-0">
+              <Btn
+                className="btn-md btn-theme-outline fw-bold"
+                title="Cancel"
+                type="button"
+                onClick={() => setModal('')}
+              />
+              <Btn className="btn-md fw-bold text-light theme-bg-color" title="Submit" type="submit" />
             </ModalFooter>
           </Form>
         )}

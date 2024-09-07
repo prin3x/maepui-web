@@ -12,8 +12,10 @@ import I18NextContext from '@/Helper/I18NextContext';
 import { useTranslation } from '@/app/i18n/client';
 import CategoryContext from '@/Helper/CategoryContext';
 import { RiArrowRightSLine } from 'react-icons/ri';
+import { useRouter } from 'next/navigation';
 
 const ShopCategory = ({ dataAPI }) => {
+  const router = useRouter();
   const { i18Lang } = useContext(I18NextContext);
   const { t } = useTranslation(i18Lang, 'common');
   const { filterCategory } = useContext(CategoryContext);
@@ -23,39 +25,40 @@ const ShopCategory = ({ dataAPI }) => {
     return filterCategory('PRODUCT');
   }, [filterCategory]);
 
-  // Log the categoryData to check for duplicates
-  console.log('Category Data:', categoryData);
-
   // Check if categoryData contains duplicates
-  const uniqueCategoryData = Array.from(new Set(categoryData.map(item => item.id)))
-    .map(id => {
-      return categoryData.find(item => item.id === id);
-    });
-
-  // Log the uniqueCategoryData to check for duplicates
-  console.log('Unique Category Data:', uniqueCategoryData);
+  const uniqueCategoryData = Array.from(new Set(categoryData.map((item) => item.id))).map((id) => {
+    return categoryData.find((item) => item.id === id);
+  });
 
   return (
     <WrapperComponent classes={{ sectionClass: 'category-section-3' }} noRowCol={true}>
       <CustomHeading title={dataAPI?.title} customClass={'title'} />
       <Row>
         <Col xs={12}>
-          <div className='category-slider-1 arrow-slider'>
+          <div className="category-slider-1 arrow-slider">
             <Slider {...madridCategorySlider}>
               {uniqueCategoryData?.map((elem) => (
                 <div key={elem.id}>
-                  <div className='category-box-list'>
-                    <Link href={`/${i18Lang}/collections?category=${elem?.id}`} className='category-name'>
+                  <div className="category-box-list">
+                    <Link href={`/${i18Lang}/collections?category=${elem?.name}`} className="category-name">
                       <h4>{elem?.name}</h4>
                       <h6>
                         {elem?.products_count} {t('items')}
                       </h6>
                     </Link>
-                    <div className='category-box-view'>
-                      <Link href={`/${i18Lang}/collections?category=${elem?.id}`}>
-                        <Image src={elem?.thumbnail?.url || placeHolderImage} className='img-fluid' alt='Shop Category' height={133} width={133} />
+                    <div className="category-box-view">
+                      <Link href={`/${i18Lang}/collections?category=${elem?.name}`}>
+                        <Image
+                          src={elem?.thumbnail?.url || placeHolderImage}
+                          className="img-fluid"
+                          alt="Shop Category"
+                          height={133}
+                          width={133}
+                        />
                       </Link>
-                      <Btn className='btn shop-button'>
+                      <Btn className="btn shop-button" onClick={() => {
+                        router.push(`/${i18Lang}/collections?category=${elem?.name}`)
+                      }}>
                         <span>รายละเอียด</span>
                         <RiArrowRightSLine />
                       </Btn>

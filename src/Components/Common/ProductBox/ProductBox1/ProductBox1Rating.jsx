@@ -21,7 +21,8 @@ const ProductBox1Rating = ({ classes = {}, totalRating, clickAble, setFieldValue
         </ul>
       ) : (
         <ul className={`rating ${classes?.customClass ? classes?.customClass : ''}`}>
-          {RatingStar && RatingStar.map((elem) => <li key={elem}>{elem + 1 <= totalRating ? <RiStarFill /> : <RiStarLine />}</li>)}
+          {RatingStar &&
+            RatingStar.map((elem) => <li key={elem}>{elem + 1 <= totalRating ? <RiStarFill /> : <RiStarLine />}</li>)}
         </ul>
       )}
     </>

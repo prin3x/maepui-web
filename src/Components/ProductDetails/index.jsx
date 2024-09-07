@@ -17,14 +17,7 @@ import StickyCheckout from './Common/StickyCheckout';
 
 const ProductDetailContent = ({ params }) => {
   const router = useRouter();
-  const { themeOption } = useContext(ThemeOptionContext);
   const { setGetProductIds, isLoading: productLoader } = useContext(ProductIdsContext);
-  const searchParams = useSearchParams();
-  const queryProductLayout = searchParams.get('layout');
-  // Getting Product Layout
-  const isProductLayout = useMemo(() => {
-    return queryProductLayout ? queryProductLayout : themeOption?.product?.product_layout ?? 'product_thumbnail';
-  }, [queryProductLayout, themeOption]);
 
   const [productState, setProductState] = useState({ product: [], attributeValues: [], productQty: 1, selectedVariation: '', variantIds: [] });
 
@@ -76,7 +69,7 @@ const ProductDetailContent = ({ params }) => {
     <>
       <Breadcrumb title={productState?.product?.name} subNavigation={[{ name: 'Product' }, { name: productState?.product?.name }]} />
       <ProductThumbnail productState={productState} setProductState={setProductState} />
-      {productState?.product?.related_products?.length > 0 && <RelatedProduct productState={productState} />}
+      {/* {productState?.product?.related_products?.length > 0 && <RelatedProduct productState={productState} />} */}
       {ProductData && <StickyCheckout ProductData={ProductData} isLoading={isLoading} />}
     </>
   );

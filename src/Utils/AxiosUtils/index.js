@@ -1,23 +1,22 @@
-import axios from "axios";
-import getCookie from "../CustomFunctions/GetCookie";
+import axios from 'axios';
+import getCookie from '../CustomFunctions/GetCookie';
 
 const client = axios.create({
   baseURL: process.env.API_PROD_URL,
   headers: {
-    Accept: "application/json",
+    Accept: 'application/json',
   },
 });
 
 const request = async ({ ...options }, router) => {
-  client.defaults.headers.common.Authorization = `Bearer ${getCookie("authToken")}`;
+  client.defaults.headers.common.Authorization = `Bearer ${getCookie('authToken')}`;
   const onSuccess = (response) => response;
   const onError = (error) => {
     if (error?.response?.status == 403) {
-      router && router.push("/403")
+      router && router.push('/403');
     }
-    router && router.push('/404')
-    console.log("error axios-utils", error?.response?.status);
-    return error;
+    router && router.push('/404');
+    throw error;
   };
   try {
     const response = await client(options);

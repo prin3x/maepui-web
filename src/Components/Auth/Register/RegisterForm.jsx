@@ -19,20 +19,25 @@ import { toast } from 'react-toastify';
 import { useMutation } from '@tanstack/react-query';
 import { RegisterAPI } from '@/Utils/AxiosUtils/API';
 import request from '@/Utils/AxiosUtils';
+import { useRouter } from 'next/navigation';
 
 const RegisterForm = () => {
   const { i18Lang } = useContext(I18NextContext);
   const { t } = useTranslation(i18Lang, 'common');
+  const router = useRouter();
   const { mutate } = useMutation({
     mutationFn: (values) => request({ url: `${RegisterAPI}`, method: 'POST', data: values }),
-    onSuccess: () => {
-      toast.success('Account created successfully');
+    onSuccess: (response) => {
+      toast.success('ลงทะเบียนสำเร็จ');
+      router.push(`/${i18Lang}/auth/login`);
+    },
+    onError: (error) => {
+      toast.error('ลงทะเบียนไม่สำเร็จ');
     },
   });
   return (
     <Formik
       initialValues={{
-        name: '',
         email: '',
         password: '',
         password_confirmation: '',
@@ -40,7 +45,6 @@ const RegisterForm = () => {
         phone: '',
       }}
       validationSchema={YupObject({
-        name: nameSchema,
         email: emailSchema,
         password: passwordSchema,
         password_confirmation: passwordConfirmationSchema,
@@ -48,14 +52,13 @@ const RegisterForm = () => {
       })}
       onSubmit={(values) => {
         // Add your logic here
-        mutate(values)
+        mutate(values);
       }}
     >
       {({ values }) => (
         <Form className="row g-md-4 g-3">
           <SimpleInputField
             nameList={[
-              { name: 'name', placeholder: t('EmailAddress'), title: 'Name', label: 'FullName' },
               { name: 'email', placeholder: t('EmailAddress'), title: 'Email', label: 'EmailAddress' },
               { name: 'password', placeholder: t('Password'), type: 'password', title: 'Password', label: 'Password' },
               {

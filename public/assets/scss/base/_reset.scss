@@ -289,6 +289,7 @@ section,
 .status-danger,
 .status-out_of_stock,
 .status-failed,
+.status-rejected,
 .status-debit {
   span {
     color: #e22454;
@@ -301,6 +302,8 @@ section,
 .status-completed,
 .status-approved,
 .status-delivered,
+.status-approved,
+.status-shipped,
 .status-credit {
   span {
     color: #2f8733;
@@ -315,7 +318,7 @@ section,
     border: 1px solid #db8827;
   }
 }
-
+.status-waiting,
 .status-processing {
   span {
     color: #0077b3;

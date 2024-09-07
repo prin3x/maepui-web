@@ -65,7 +65,7 @@
   "EnterNewPassword": "ใส่รหัสผ่านใหม่",
   "EnterConfirmPassword": "ใส่ยืนยันรหัสผ่าน",
   "MyProfile": "โปรไฟล์ของฉัน",
-  "WelcomeToFastkart": "ยินดีต้อนรับสู่ Fastkart",
+  "WelcomeToMaepui": "ยินดีต้อนรับสู่ แม่ปุ๋ย",
   "Forgotyourpassword": "ลืมรหัสผ่านของคุณ",
   "LogInYourAccount": "เข้าสู่บัญชีของคุณ",
   "or": "หรือ",
@@ -251,6 +251,14 @@
   "Date": "วันที่",
   "Amount": "จำนวน",
   "PaymentStatus": "สถานะการชำระเงิน",
+  "OrderStatus": "สถานะคำสั่งซื้อ",
+  "status": {
+    "PENDING": "รอดำเนินการ",
+    "APPROVED": "อนุมัติ",
+    "SHIPPED": "จัดส่ง",
+    "DELIVERED": "จัดส่งแล้ว",
+    "CANCELLED": "ยกเลิก"
+  },
   "PaymentMethod": "วิธีการชำระเงิน",
   "Option": "ตัวเลือก",
   "Point": "คะแนน",

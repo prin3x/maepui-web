@@ -23,10 +23,6 @@ const ProfileInformation = () => {
             <Table>
               <tbody>
                 <tr>
-                  <td>{t("Name")} :</td>
-                  <td>{accountData?.name}</td>
-                </tr>
-                <tr>
                   <td>{t("PhoneNumber")} :</td>
                   <td>
                     +66 {accountData?.phone}

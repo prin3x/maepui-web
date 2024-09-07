@@ -8,28 +8,29 @@ import Cookies from 'js-cookie';
 const AccountProvider = (props) => {
   const [mobileSideBar, setMobileSideBar] = useState(false);
   const [accountData, setAccountData] = useState();
-  const { data, refetch, isLoading } = useQuery([SelfAPI], () => request({ url: SelfAPI }), {
+  const { data, refetch, isLoading, error } = useQuery([SelfAPI], () => request({ url: SelfAPI }), {
     enabled: true,
+    refetchOnWindowFocus: false,
     select: (res) => {
-      return res?.data;
+      return res?.data || null;
     },
   });
 
-  const handleLogout = (router, mutate) => {
+  const handleLogout = (mutate) => {
     setAccountData(null);
     Cookies.remove('authToken', { path: '/' });
     Cookies.remove('account');
     // Clear cart items from localStorage
     localStorage.removeItem('cart');
-    mutate();
-
+    refetch();
   };
-
   useEffect(() => {
-    if (data) {
+    if (error) {
+      setAccountData(null);
+    } else if (data) {
       setAccountData(data);
     }
-  }, [isLoading, data]);
+  }, [isLoading, data, error]);
 
   return (
     <AccountContext.Provider
