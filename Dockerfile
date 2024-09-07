@@ -1,5 +1,5 @@
-# Use an official Node runtime as a parent image
-FROM node:14.17.0-alpine
+# Use a more recent Node.js version
+FROM node:18.12-alpine
 
 # Install pnpm
 RUN npm install -g pnpm
