@@ -1,5 +1,5 @@
 # Use a more recent Node.js version
-FROM node:18.12-alpine
+FROM node:20-alpine
 
 # Install pnpm
 RUN npm install -g pnpm
