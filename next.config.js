@@ -19,11 +19,10 @@ module.exports = (phase) => {
     API_BASE_URL: 'http://localhost:8080/api',
   };
   const redirects = () => {
-    const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
     return [
       {
         source: '/',
-        destination: `${basePath}/th/`,
+        destination: `/th/`,
         permanent: false,
       },
     ];
