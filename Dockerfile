@@ -1,23 +1,26 @@
-# Use a specific stable version of Node.js
+# Use an official Node runtime as a parent image
 FROM node:14.17.0-alpine
 
-# Set working directory
-WORKDIR /app
+# Install pnpm
+RUN npm install -g pnpm
 
-# Copy package.json and package-lock.json
-COPY package.json package-lock.json ./
+# Set the working directory in the container
+WORKDIR /usr/src/app
+
+# Copy package.json and pnpm-lock.yaml (if available)
+COPY package.json pnpm-lock.yaml* ./
 
 # Install dependencies
-RUN npm install
+RUN pnpm install --frozen-lockfile
 
-# Copy the rest of the application
+# Copy the rest of your app's source code
 COPY . .
 
-# Build the application
-RUN npm run build
+# Build your app
+RUN pnpm run build
 
-# Expose the port the app runs on
+# Expose the port your app runs on
 EXPOSE 3000
 
-# Start the application
-CMD ["npm", "start"]
+# Define the command to run your app
+CMD ["pnpm", "start"]
