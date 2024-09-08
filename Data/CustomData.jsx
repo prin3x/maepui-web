@@ -93,11 +93,11 @@ export const filterSort = [
   // },
   {
     value: 'low-high',
-    label: 'Low - High Price',
+    label: 'ราคาน้อยไปมาก',
   },
   {
     value: 'high-low',
-    label: 'High - Low Price',
+    label: 'ราคามากไปน้อย',
   },
 ];
 
